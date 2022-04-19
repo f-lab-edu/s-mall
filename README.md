@@ -28,4 +28,6 @@
 
 <h3>API 목록</h3>
  <a href="https://github.com/f-lab-edu/s-mall/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C">API 명세서</a>
-  
+
+<h3>데이터 베이스 모델링</h3>
+<a href="https://github.com/f-lab-edu/s-mall/wiki/ERD">DB 모델링</a>
