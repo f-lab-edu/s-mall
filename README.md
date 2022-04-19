@@ -22,7 +22,7 @@
   <li>Spring Boot</li>
   <li>Gradle</li>
   <li>MariaDB</li>
- <ul>
+ </ul>
 
 <h3>API 목록</h3>
  <ul>     
