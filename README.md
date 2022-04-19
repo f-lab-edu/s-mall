@@ -26,13 +26,13 @@
 
 <h3>API 목록</h3>
  <ul>     
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#로그인-요청">로그인 요청</a> <li>
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#회원가입-요청">회원가입 요청</a> <li>
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#사용자-정보-읽기">사용자 정보 읽기</a> <li>
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#회원-정보-변경">회원 정보 변경</a> <li>
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#상품-리스트-읽기">상품 리스트 읽기</a> <li>
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#카테고리에-등록된-상품-개수-읽기">카테고리에 등록된 상품 개수 읽기</a> <li>
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#선택-상품의-상세-정보-읽기">선택 상품의 상세 정보 읽기</a> <li>   
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#구매">구매</a> <li>   
-   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#상품-등록">상품 등록</a> <li>   
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#로그인-요청">로그인 요청</a> </li>
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#회원가입-요청">회원가입 요청</a> </li>
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#사용자-정보-읽기">사용자 정보 읽기</a> </li>
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#회원-정보-변경">회원 정보 변경</a> </li>
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#상품-리스트-읽기">상품 리스트 읽기</a> </li>
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#카테고리에-등록된-상품-개수-읽기">카테고리에 등록된 상품 개수 읽기</a> </li>
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#선택-상품의-상세-정보-읽기">선택 상품의 상세 정보 읽기</a> </li>   
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#구매">구매</a> </li>   
+   <li> <a href="https://github.com/f-lab-edu/s-mall/wiki/API-명세서#상품-등록">상품 등록</a> </li>   
  </ul>
