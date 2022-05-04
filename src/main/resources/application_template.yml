@@ -2,8 +2,8 @@ spring:
   datasource:
     url: jdbc:mariadb://34.125.26.207:3306/small
     driver-class-name: org.mariadb.jdbc.Driver
-    username: xx
-    password: xxxx
+    username: xxx
+    password: xxxxxx
 
 mybatis:
   #type-aliases-package:
