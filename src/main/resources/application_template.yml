@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://34.125.26.207:3306/small
+    url: jdbc:db://xxx.xxx.xxx.xxx:xxxx/{}
     driver-class-name: org.mariadb.jdbc.Driver
     username: xxx
     password: xxxxxx

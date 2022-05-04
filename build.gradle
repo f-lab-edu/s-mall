@@ -7,7 +7,13 @@ plugins {
 group = 'com.flabedu.small'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
-// 학습을 위해 최근 자바 기능을 사용하기 위해 버전 17로 지정
+
+// 스프링 initializer에는 자바 선택에는 LTS 버전인 8, 11, 17과 비 LTS 버전인 최신 버전인 18(22.3)이 있지만
+// 학습을 위한 목적으로 다음의 자바 키워드를 사용해보기 위해 이를 지원하는 LTS 버전인 17로 지정하였다.
+//    * 향상된 switch 문 (정식채택 버전 14)
+//    * record (정식채택 버전 16)
+//    * sealed (버전 15)
+//    * 패턴 매칭 instanceof (버전 14)
 
 repositories {
     mavenCentral()
