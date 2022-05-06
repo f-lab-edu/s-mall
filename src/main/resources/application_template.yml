@@ -1,4 +1,4 @@
-spring:
+dfmdspring:
   datasource:
     url: jdbc:db://xxx.xxx.xxx.xxx:xxxx/{}
     driver-class-name: org.mariadb.jdbc.Driver

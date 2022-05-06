@@ -7,13 +7,24 @@ plugins {
 group = 'com.flabedu.small'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+/**
+ 스프링 initializer에는 자바 선택에는 LTS 버전인 8, 11, 17과 비 LTS 버전인 최신 버전인 18(22.3)이 있다.
+ 우선 지원 기간이 긴 LTS 버전 중에서 택일하기로 한다.
+ 자바 8 vs 11
+    * 자바 8의 Default GC는 parallel GC이고, 자바 11의 Default GC는 G1GC이다.
+    * G1GC는 Heap을 Region이란 논리적 단위로 분할하여 관리하며, parallel GC에 비해 STW가 짧다.
+    * 성능이 개선된 GC를 사용하기 위해 11 이상의 버전을 채택하도록 한다.
+ 자바 11 vs 17
+    * 자바 15부터 Z GC가 사용 가능하다. (production ready)
+    * 본 프로젝트의 목적은 학습한 내용을 적용해보는 것이므로, Z GC가 사용 가능한 자바 17을 채택하도록 한다.
+ 기타 (11 vs 17)
+    * 향상된 switch 문 (정식채택 버전 14)
+    * record (정식채택 버전 16)
+    * sealed (버전 15)
+    * 패턴 매칭 instanceof (버전 14)
+ *
+ */
 
-// 스프링 initializer에는 자바 선택에는 LTS 버전인 8, 11, 17과 비 LTS 버전인 최신 버전인 18(22.3)이 있지만
-// 학습을 위한 목적으로 다음의 자바 키워드를 사용해보기 위해 이를 지원하는 LTS 버전인 17로 지정하였다.
-//    * 향상된 switch 문 (정식채택 버전 14)
-//    * record (정식채택 버전 16)
-//    * sealed (버전 15)
-//    * 패턴 매칭 instanceof (버전 14)
 
 repositories {
     mavenCentral()
