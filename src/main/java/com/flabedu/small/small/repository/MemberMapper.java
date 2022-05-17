@@ -12,6 +12,6 @@ public interface MemberMapper {
     @Select("Select * From member")
     List<Member> list();
 
-    @Select("Select * From member where USERID = #{id}")
-    Member getMember(long id);
+    @Select("Select * From member where USERID = #{userID}")
+    Member getMember(String userId);
 }

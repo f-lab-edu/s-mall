@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.dsig.spec.XPathType;
 import java.io.IOException;
 
-@Component
+//@Component
 public class LoginBlockFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
