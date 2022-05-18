@@ -1,4 +1,4 @@
-package com.flabedu.small.small.web.dto;
+package com.flabedu.small.small.dto;
 
 public enum GenderEnum {
     C, M, F;

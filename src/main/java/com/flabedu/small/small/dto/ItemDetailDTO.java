@@ -1,4 +1,4 @@
-package com.flabedu.small.small.web.dto;
+package com.flabedu.small.small.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,8 +7,8 @@ import lombok.Setter;
 public class ItemDetailDTO {
 
     private long itemDetailId;
-
+    private long itemId;
     private long stock;
-    private String sie;
+    private String size;
 
 }

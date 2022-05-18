@@ -1,4 +1,4 @@
-package com.flabedu.small.small.web.dto;
+package com.flabedu.small.small.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class ItemDTO {
     @NotBlank(message = "상품을 입력해주세요.")
     private String name;
 
-    private String nameEng;
+    private String engName;
 
     @NotNull(message = "성별을 선택해주세요.")
     private GenderEnum gender;
@@ -30,17 +30,18 @@ public class ItemDTO {
     private BigDecimal price;
 
     @NotNull(message = "카테고리를 선택해주세요.")
-    private long categoryId;
+    private long category;
 
     @NotNull(message = "소카테고리를 선택해주세요.")
-    private long subCategoryId;
+    private long subCategory;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "상품의 이미지는 최소 1개 이상 등록해주세요.")
     private List<String> itemImages;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "상품 사이즈에 대한 재고를 최소 1개 이상 입력해주세요.")
     private List<ItemDetailDTO> itemDetails;
 
-    private String myUserId;
+    private String registUserId;
+    private String modifiedUserId;
 
 }

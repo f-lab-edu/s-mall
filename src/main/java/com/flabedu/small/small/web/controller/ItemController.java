@@ -1,7 +1,7 @@
 package com.flabedu.small.small.web.controller;
 
 import com.flabedu.small.small.service.ItemService;
-import com.flabedu.small.small.web.dto.ItemDTO;
+import com.flabedu.small.small.dto.ItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +23,9 @@ public class ItemController {
     public ResponseEntity addItem(@Validated @RequestBody ItemDTO newItem, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(e -> {
+                System.out.println(e.getDefaultMessage()); //로깅?
+            });
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 

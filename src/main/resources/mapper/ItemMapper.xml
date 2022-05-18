@@ -3,36 +3,35 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flabedu.small.small.repository.ItemRepository">
+    <resultMap id="itemMap" type="com.flabedu.small.small.dto.ItemDTO">
+    </resultMap>
 
-    <insert id="addItem" parameterType="com.flabedu.small.small.web.dto.Item"
+    <insert id="addItem" parameterType="com.flabedu.small.small.dto.ItemDTO"
             useGeneratedKeys="true" keyProperty="itemId">
         <selectKey order="AFTER" resultType="long" keyProperty="itemId">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into ITEM (name, ename, gender, price, regist_userid, regist_date)
-        values (#{name}, #{ename}, #{gender}, #{price}, #{myUserId}, now())
+        insert into item (name, engname, gender, price, regist_userid, regist_date)
+        values (#{name}, #{engName}, #{gender}, #{price}, #{registUserId}, now())
     </insert>
 
-    <insert id="addItemCategory" parameterType="com.flabedu.small.small.web.dto.Item"
-            useGeneratedKeys="true" keyProperty="itemCategoryId">
-        insert into ITEM_CATEGORY (item_id, category_id,regist_userid,regist_date)
-        values (#{itemId},#{categoryId}, #{myUserId}, now())
+    <insert id="addItemCategory" parameterType="com.flabedu.small.small.dto.ItemDTO">
+        insert into item_category (item_id, category_id,regist_userid,regist_date)
+        values (#{itemId},#{subCategory}, #{registUserId}, now())
     </insert>
 
-    <insert id="addItemImage" parameterType="java.util.List"
-            useGeneratedKeys="true" keyProperty="itemImageId">
-        insert into ITEM_IMAGE (item_id,seq,filename)
+    <insert id="addItemImage" parameterType="java.util.Map">
+        insert into item_image (item_id,seq,filename)
         values
-        <foreach collection="list" separator="," item="img" index="i">
-            (#{itemId}, #{i+1}, #{img})
+        <foreach collection="images" separator="," item="image" index="i">
+            (#{itemId}, #{i}+1, #{image})
         </foreach>
     </insert>
 
-    <insert id="addItemDetail" parameterType="java.util.List"
-            useGeneratedKeys="true" keyProperty="itemDetailId">
-        insert into ITEM_DETAIL (item_id,stock,size)
+    <insert id="addItemDetail" parameterType="java.util.List">
+        insert into item_detail (item_id,stock,size)
         values
-        <foreach collection="list" separator="," item="itemDetail">
+        <foreach collection="itemDetails" separator="," item="itemDetail">
             (#{itemId}, #{itemDetail.stock}, #{itemDetail.size})
         </foreach>
     </insert>
