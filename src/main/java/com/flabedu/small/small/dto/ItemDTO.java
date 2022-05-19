@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter @Setter
@@ -42,6 +43,8 @@ public class ItemDTO {
     private List<ItemDetailDTO> itemDetails;
 
     private String registUserId;
+    private LocalDateTime registDate;
     private String modifiedUserId;
+    private LocalDateTime modifiedDate;
 
 }
