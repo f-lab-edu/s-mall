@@ -17,7 +17,7 @@ public class ItemService {
 
     @Transactional
     public void addItem(ItemDTO item){
-        item.setRegistUserId("admin"); //세션에서 UserID 가져와야 하지않나?
+        item.setRegistUserId("admin"); //세션에서 UserID 읽어야 하지 않을까?
         itemRepository.addItem(item);
         itemRepository.addItemCategory(item);
 

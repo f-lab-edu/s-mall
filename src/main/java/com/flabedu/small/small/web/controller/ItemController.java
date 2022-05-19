@@ -24,7 +24,7 @@ public class ItemController {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(e -> {
-                System.out.println(e.getDefaultMessage()); //로깅?
+                System.out.println(e.getDefaultMessage()); //로깅해야하나?
             });
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
