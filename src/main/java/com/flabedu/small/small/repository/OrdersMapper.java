@@ -8,9 +8,5 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface OrdersMapper {
-    @Insert("INSERT INTO orders " +
-            "(member_id, total_price,  status,orders_date, modified_date) " +
-            "values(#{memberId}, #{totalPrice}, #{status}, #{ordersDate}, #{modifiedDate})")
-    @Options(useGeneratedKeys = true, keyProperty = "orderId")
     void insertOrders(Orders orders);
 }

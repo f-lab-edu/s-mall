@@ -1,17 +1,19 @@
 package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.data.*;
-import com.flabedu.small.small.dto.OrdersDTO;
+import com.flabedu.small.small.web.dto.request.OrderItemDTO;
 import com.flabedu.small.small.repository.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
 
 @Service
+@AllArgsConstructor
 public class ItemService {
 
     MemberMapper memberMapper;
@@ -20,16 +22,8 @@ public class ItemService {
     OrdersMapper ordersMapper;
     OrdersItemMapper ordersItemMapper;
 
-    public ItemService(MemberMapper memberMapper, ItemMapper itemMapper, ItemDetailMapper itemDetailMapper, OrdersMapper ordersMapper, OrdersItemMapper ordersItemMapper) {
-        this.memberMapper = memberMapper;
-        this.itemMapper = itemMapper;
-        this.itemDetailMapper = itemDetailMapper;
-        this.ordersMapper = ordersMapper;
-        this.ordersItemMapper = ordersItemMapper;
-    }
-
     @Transactional
-    public void purchaseItem(List<OrdersDTO> itemInfo, String userID){
+    public void purchaseItem(List<OrderItemDTO> itemInfo, String userID){
         Member user = memberMapper.getMember(userID);
         List<OrdersItem> ordersItems = createOrderItems(user, itemInfo);
         ordersItems.forEach(
@@ -40,19 +34,20 @@ public class ItemService {
 
     private void saveOrders(Member user, List<OrdersItem> ordersItems) {
         long totalPrice = ordersItems.stream().mapToLong(OrdersItem::getPrice).sum();
-        long time = new java.util.Date().getTime();
-        Date createDate = new Date(time);
-        Orders orders = new Orders(user.getId(), totalPrice, "S", createDate, createDate);
+        LocalDateTime createDate = LocalDateTime.now();
+        Orders orders = new Orders(user.getId(), totalPrice, Orders.OrderStatus.SUCCEED, createDate, createDate);
         ordersMapper.insertOrders(orders);
         long ordersId = orders.getOrderId();
 
+        //todo : mybatis에서 루프 사용으로 변경
         ordersItems.forEach(item -> {
             item.setOrdersId(ordersId);
             ordersItemMapper.saveOrderDetail(item);
         });
     }
 
-    private List<OrdersItem> createOrderItems(Member user, List<OrdersDTO> itemInfo) {
+
+    private List<OrdersItem> createOrderItems(Member user, List<OrderItemDTO> itemInfo) {
         List<OrdersItem> ordersItems = new LinkedList<>();
         if(user == null) throw new IllegalArgumentException("로그인 되지 않음");
 
@@ -64,17 +59,16 @@ public class ItemService {
             if(detail == null) throw new IllegalArgumentException("존재하지 않은 아이템 사이즈");
             if(detail.getStock() <= 0) throw new IllegalStateException("재고 없음");
 
-
             itemDetailMapper.setStock(
                     detail.getItemDetailId(),
-                    detail.getStock() - ordersItem.getStock()
+                    detail.getStock() - ordersItem.getCount()
                     );
 
             ordersItems.add(new OrdersItem(0,
                         item.getItemId(),
                         detail.getItemDetailId(),
-                        ordersItem.getStock(),
-                        item.getPrice() * ordersItem.getStock()
+                        ordersItem.getCount(),
+                        item.getPrice() * ordersItem.getCount()
                     ));
         });
         return ordersItems;

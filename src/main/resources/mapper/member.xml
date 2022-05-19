@@ -5,4 +5,15 @@
 
 <mapper namespace="com.flabedu.small.small.repository.MemberMapper">
 
+    <select id="list" resultType="java.util.List">
+        select * from Member;
+    </select>
+
+    <select id="getItem"
+            parameterType="java.lang.String"
+            resultType="com.flabedu.small.small.data.Member">
+        Select * From member where USERID = #{userID}
+    </select>
+
+
 </mapper>

@@ -1,9 +1,11 @@
 package com.flabedu.small.small.data;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,8 +16,8 @@ public class Item {
     String gender;
     long price;
     String registerUserID;
-    Date registerDate;
+    LocalDateTime registerDate;
     String modifiedUserID;
-    Date modifiedDate;
+    LocalDateTime modifiedDate;
 
 }

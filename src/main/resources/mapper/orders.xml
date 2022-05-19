@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flabedu.small.small.repository.OrdersMapper">
+
+    <update id="setStock"
+            parameterType="com.flabedu.small.small.data.Orders"
+            useGeneratedKeys="true"
+            keyProperty="orderId"
+    >
+        Insert into orders_item(
+                             INSERT INTO orders
+                             (member_id, total_price,  status,orders_date, modified_date)
+                             values(#{memberId}, #{totalPrice}, #{status.status}, #{ordersDate}, #{modifiedDate})
+    </update>
+
+
+</mapper>
