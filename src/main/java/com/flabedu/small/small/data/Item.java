@@ -5,10 +5,8 @@ import lombok.*;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
+@AllArgsConstructor
 public class Item {
     long itemId;
     String name;

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 public class ItemController {
@@ -22,11 +24,11 @@ public class ItemController {
     //todo Error에 대한 재학습
     @ResponseBody
     @PostMapping("/items/product")
-    public ResponseEntity<String> purchaseItem(@RequestBody ItemsProductDTO purchaseItem){
+    public ResponseEntity<String> purchaseItem(@Valid @RequestBody ItemsProductDTO purchaseItem){
         try {
             service.purchaseItem(purchaseItem, "test_user");
         }catch (ItemException | MemberException e){
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED);

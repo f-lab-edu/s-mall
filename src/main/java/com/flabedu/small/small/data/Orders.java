@@ -10,9 +10,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-@Getter
-@EqualsAndHashCode
-@ToString
+@Data
 @AllArgsConstructor
 public class Orders {
     long orderId;

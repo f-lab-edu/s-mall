@@ -41,12 +41,8 @@ public class ItemServiceImp implements ItemService {
         ordersMapper.insertOrders(orders);
         long ordersId = orders.getOrderId();
 
-        //todo : mybatis에서 루프 사용으로 변경
         ordersItemMapper.saveOrderDetail(ordersId, ordersItems);
-        /*ordersItems.forEach(item -> {
-            item.setOrdersId(ordersId);
-            ordersItemMapper.saveOrderDetail(item);
-        });*/
+        ordersItemMapper.saveOrderDetail(ordersId, ordersItems);
     }
 
 
@@ -78,6 +74,4 @@ public class ItemServiceImp implements ItemService {
         });
         return ordersItems;
     }
-
-
 }
