@@ -4,16 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flabedu.small.small.repository.OrdersItemMapper">
-
-    <update id="setStock"
-            parameterType="com.flabedu.small.small.data.OrdersItem"
+    <resultMap id="ordersItemMap" type="com.flabedu.small.small.data.OrdersItem">
+        <id property="itemId" column="itemId"/>
+        <id property="itemDetailId" column="itemDetailId"/>
+        <id property="ordersItemCount" column="rdersItemCount"/>
+        <id property="price" column="price"/>
+    </resultMap>
+    <insert id="saveOrderDetail"
+            parameterType="map"
     >
-        Insert into orders_item( +
+        Insert into orders_item(
             orders_id, item_id, item_detail_id, orders_item_count, price
-            ) values(
-            #{ordersId}, #{itemId}, #{itemDetailId}, #{ordersItemCount}, #{price}
+            ) values
+            <foreach collection="items" separator="," item="item">
+             (
+                #{ordersId}, #{item.itemId}, #{item.itemDetailId}, #{item.ordersItemCount}, #{item.price}
             )
-    </update>
+            </foreach>
+    </insert>
+
+    <select id="getOrderDetail"
+            parameterType="long"
+            resultType="com.flabedu.small.small.data.OrdersItem">
+        select * from orders_item where orders_id = #{ordersId}
+    </select>
+
 
 
 </mapper>

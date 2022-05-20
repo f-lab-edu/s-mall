@@ -9,4 +9,5 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface OrdersMapper {
     void insertOrders(Orders orders);
+    Orders getOrders(long orderId);
 }

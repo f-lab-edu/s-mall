@@ -1,10 +1,10 @@
 package com.flabedu.small.small.data;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@EqualsAndHashCode
+@ToString
 @Builder(access= AccessLevel.PUBLIC)
 public class ItemDetail {
     long itemDetailId;

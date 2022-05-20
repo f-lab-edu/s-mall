@@ -13,4 +13,6 @@ public interface ItemDetailMapper {
     ItemDetail getItemDetail(@Param("itemId") long itemId, @Param("size")String size);
 
     void setStock(@Param("detailId") long detailId, @Param("stock")long stock);
+
+    ItemDetail getItemDetailById(@Param("detailId") long detailId);
 }

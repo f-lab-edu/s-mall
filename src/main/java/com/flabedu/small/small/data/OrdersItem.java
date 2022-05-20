@@ -1,12 +1,11 @@
 package com.flabedu.small.small.data;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString
 public class OrdersItem {
     long ordersId;
     long itemId;

@@ -1,7 +1,9 @@
 package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.data.*;
-import com.flabedu.small.small.web.dto.request.OrderItemDTO;
+import com.flabedu.small.small.exception.*;
+import com.flabedu.small.small.service.contract.ItemService;
+import com.flabedu.small.small.web.dto.request.ItemsProductDTO;
 import com.flabedu.small.small.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ItemService {
+public class ItemServiceImp implements ItemService {
 
     MemberMapper memberMapper;
     ItemMapper itemMapper;
@@ -23,9 +25,9 @@ public class ItemService {
     OrdersItemMapper ordersItemMapper;
 
     @Transactional
-    public void purchaseItem(List<OrderItemDTO> itemInfo, String userID){
+    public void purchaseItem(ItemsProductDTO itemInfo, String userID) throws ItemException, MemberException{
         Member user = memberMapper.getMember(userID);
-        List<OrdersItem> ordersItems = createOrderItems(user, itemInfo);
+        List<OrdersItem> ordersItems = createOrderItems(user, itemInfo.getOrders());
         ordersItems.forEach(
                 v-> System.out.println(v.getItemId())
         );
@@ -35,41 +37,44 @@ public class ItemService {
     private void saveOrders(Member user, List<OrdersItem> ordersItems) {
         long totalPrice = ordersItems.stream().mapToLong(OrdersItem::getPrice).sum();
         LocalDateTime createDate = LocalDateTime.now();
-        Orders orders = new Orders(user.getId(), totalPrice, Orders.OrderStatus.SUCCEED, createDate, createDate);
+        Orders orders = new Orders(0,user.getId(), totalPrice, createDate, Orders.OrderStatus.SUCCEED, createDate);
         ordersMapper.insertOrders(orders);
         long ordersId = orders.getOrderId();
 
         //todo : mybatis에서 루프 사용으로 변경
-        ordersItems.forEach(item -> {
+        ordersItemMapper.saveOrderDetail(ordersId, ordersItems);
+        /*ordersItems.forEach(item -> {
             item.setOrdersId(ordersId);
             ordersItemMapper.saveOrderDetail(item);
-        });
+        });*/
     }
 
 
-    private List<OrdersItem> createOrderItems(Member user, List<OrderItemDTO> itemInfo) {
+    private List<OrdersItem> createOrderItems(Member user, List<ItemsProductDTO.OrderItem> itemInfo)
+    throws ItemException, MemberException
+    {
         List<OrdersItem> ordersItems = new LinkedList<>();
-        if(user == null) throw new IllegalArgumentException("로그인 되지 않음");
+        if(user == null) throw new CannotFindMemberException("로그인 되지 않음");
 
-        itemInfo.forEach(ordersItem->{
+        itemInfo.forEach(ordersItem-> {
             Item item = itemMapper.getItem(ordersItem.getItemId());
             ItemDetail detail = itemDetailMapper.getItemDetail(ordersItem.getItemId(), ordersItem.getSize());
 
-            if(item == null) throw new IllegalArgumentException("존재하지 않은 Item");
-            if(detail == null) throw new IllegalArgumentException("존재하지 않은 아이템 사이즈");
-            if(detail.getStock() <= 0) throw new IllegalStateException("재고 없음");
+            if(item == null) throw new CannotFindItemException("존재하지 않은 Item");
+            if(detail == null) throw new CannotFindItemDetailException("존재하지 않은 아이템 사이즈");
+            if(detail.getStock() <= 0) throw new NoStockException("재고 없음");
 
             itemDetailMapper.setStock(
                     detail.getItemDetailId(),
                     detail.getStock() - ordersItem.getCount()
-                    );
+            );
 
             ordersItems.add(new OrdersItem(0,
-                        item.getItemId(),
-                        detail.getItemDetailId(),
-                        ordersItem.getCount(),
-                        item.getPrice() * ordersItem.getCount()
-                    ));
+                    item.getItemId(),
+                    detail.getItemDetailId(),
+                    ordersItem.getCount(),
+                    item.getPrice() * ordersItem.getCount()
+            ));
         });
         return ordersItems;
     }

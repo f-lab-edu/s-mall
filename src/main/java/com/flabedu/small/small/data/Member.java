@@ -1,12 +1,16 @@
 package com.flabedu.small.small.data;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
+@EqualsAndHashCode
+@ToString
 @Builder
 public class Member {
     int id;

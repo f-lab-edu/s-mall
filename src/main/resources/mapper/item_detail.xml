@@ -15,6 +15,12 @@
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
+    <select id="getItemDetailById"
+            parameterType="long"
+            resultType="com.flabedu.small.small.data.ItemDetail">
+        SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
+    </select>
+
     <update id="setStock"
             parameterType="map"
             >

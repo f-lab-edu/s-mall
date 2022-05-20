@@ -5,16 +5,21 @@
 
 <mapper namespace="com.flabedu.small.small.repository.OrdersMapper">
 
-    <update id="setStock"
+    <insert id="insertOrders"
             parameterType="com.flabedu.small.small.data.Orders"
             useGeneratedKeys="true"
             keyProperty="orderId"
     >
-        Insert into orders_item(
-                             INSERT INTO orders
-                             (member_id, total_price,  status,orders_date, modified_date)
-                             values(#{memberId}, #{totalPrice}, #{status.status}, #{ordersDate}, #{modifiedDate})
-    </update>
+             INSERT INTO orders
+             (member_id, total_price, status, orders_date, modified_date)
+             values(#{memberId}, #{totalPrice}, #{status.status}, #{ordersDate}, #{modifiedDate})
+    </insert>
+
+    <select id="getOrders"
+            parameterType="java.lang.Long"
+            resultType="com.flabedu.small.small.data.Orders">
+        SELECT * FROM orders WHERE orders_id = #{orderId}
+    </select>
 
 
 </mapper>
