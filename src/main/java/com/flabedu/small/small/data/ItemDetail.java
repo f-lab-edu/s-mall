@@ -1,4 +1,4 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.data;
 
 import lombok.Getter;
 import lombok.Setter;

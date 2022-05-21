@@ -1,6 +1,6 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.model.Item;
+import com.flabedu.small.small.data.Item;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.web.dto.request.ItemDTO;
 import lombok.RequiredArgsConstructor;

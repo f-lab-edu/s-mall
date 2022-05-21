@@ -1,7 +1,7 @@
 package com.flabedu.small.small.web.dto.request;
 
-import com.flabedu.small.small.model.GenderEnum;
-import com.flabedu.small.small.model.ItemDetail;
+import com.flabedu.small.small.data.GenderEnum;
+import com.flabedu.small.small.data.ItemDetail;
 import lombok.Builder;
 import lombok.Getter;
 
