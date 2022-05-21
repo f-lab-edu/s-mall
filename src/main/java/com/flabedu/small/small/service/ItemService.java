@@ -1,6 +1,6 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.data.Item;
+import com.flabedu.small.small.domain.Item;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.web.dto.request.ItemDTO;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    @Transactional(propagation = Propagation.NEVER)
+    @Transactional
     public void addItem(ItemDTO newItem){
         Item item = Item.builder()
                         .name(newItem.getName())

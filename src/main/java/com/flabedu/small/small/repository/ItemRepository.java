@@ -1,6 +1,6 @@
 package com.flabedu.small.small.repository;
 
-import com.flabedu.small.small.data.Item;
+import com.flabedu.small.small.domain.Item;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
