@@ -1,10 +1,10 @@
-package com.flabedu.small.small.dto;
+package com.flabedu.small.small.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ItemDetailDTO {
+public class ItemDetail {
 
     private long itemDetailId;
     private long itemId;

@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flabedu.small.small.repository.ItemRepository">
-    <resultMap id="itemMap" type="com.flabedu.small.small.dto.ItemDTO">
+    <resultMap id="itemMap" type="com.flabedu.small.small.model.Item">
     </resultMap>
 
-    <insert id="addItem" parameterType="com.flabedu.small.small.dto.ItemDTO"
+    <insert id="addItem" parameterType="com.flabedu.small.small.model.Item"
             useGeneratedKeys="true" keyProperty="itemId">
         <selectKey order="AFTER" resultType="long" keyProperty="itemId">
             SELECT LAST_INSERT_ID()
@@ -15,7 +15,7 @@
         values (#{name}, #{engName}, #{gender}, #{price}, #{registUserId}, now())
     </insert>
 
-    <insert id="addItemCategory" parameterType="com.flabedu.small.small.dto.ItemDTO">
+    <insert id="addItemCategory" parameterType="com.flabedu.small.small.model.Item">
         insert into item_category (item_id, category_id,regist_userid,regist_date)
         values (#{itemId},#{subCategory}, #{registUserId}, now())
     </insert>

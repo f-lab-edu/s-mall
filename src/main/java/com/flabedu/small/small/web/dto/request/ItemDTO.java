@@ -1,18 +1,18 @@
-package com.flabedu.small.small.dto;
+package com.flabedu.small.small.web.dto.request;
 
+import com.flabedu.small.small.model.GenderEnum;
+import com.flabedu.small.small.model.ItemDetail;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter @Setter
+@Getter
 @Builder
 public class ItemDTO {
 
@@ -40,11 +40,7 @@ public class ItemDTO {
     private List<String> itemImages;
 
     @Size(min = 1, message = "상품 사이즈에 대한 재고를 최소 1개 이상 입력해주세요.")
-    private List<ItemDetailDTO> itemDetails;
+    private List<ItemDetail> itemDetails;
 
-    private String registUserId;
-    private LocalDateTime registDate;
-    private String modifiedUserId;
-    private LocalDateTime modifiedDate;
 
 }

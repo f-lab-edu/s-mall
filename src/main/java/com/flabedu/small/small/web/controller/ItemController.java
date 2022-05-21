@@ -1,7 +1,7 @@
 package com.flabedu.small.small.web.controller;
 
 import com.flabedu.small.small.service.ItemService;
-import com.flabedu.small.small.dto.ItemDTO;
+import com.flabedu.small.small.web.dto.request.ItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class ItemController {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(e -> {
-                System.out.println(e.getDefaultMessage()); //로깅해야하나?
+                System.out.println(e.getDefaultMessage());
             });
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
