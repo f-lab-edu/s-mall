@@ -1,8 +1,11 @@
 package com.flabedu.small.small.exception;
 
-public class MemberException extends RuntimeException{
-    public MemberException(String message) {
-        super(message);
-    }
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@RequiredArgsConstructor
+public class MemberException extends RuntimeException{
+    protected final ErrorCodes errorCode;
+    protected final String message;
 }

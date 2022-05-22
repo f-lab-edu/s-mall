@@ -1,16 +1,11 @@
-package com.flabedu.small.small.service.mapper_test;
+package com.flabedu.small.small.mapper_test;
 
-import com.flabedu.small.small.data.ItemDetail;
-import com.flabedu.small.small.repository.ItemDetailMapper;
-import com.flabedu.small.small.repository.ItemMapper;
+import com.flabedu.small.small.mapper.ItemDetailMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -29,7 +24,7 @@ class ItemDetailMapperTest {
         var itemId = 1;
         var size = "소";
 
-        var item = itemDetailMapper.getItemDetail(itemId, size);
+        var item = itemDetailMapper.findItemDetail(itemId, size);
 
         Assertions.assertEquals(itemId, item.getItemId());
         Assertions.assertEquals(size, item.getSize());
@@ -38,7 +33,7 @@ class ItemDetailMapperTest {
     @Test
     public void getItemDetailByIdTest(){
         var detailId = 1;
-        var item = itemDetailMapper.getItemDetailById(detailId);
+        var item = itemDetailMapper.findItemDetailById(detailId);
         Assertions.assertEquals(detailId, item.getItemDetailId());
     }
 
@@ -49,7 +44,7 @@ class ItemDetailMapperTest {
 
         itemDetailMapper.setStock(detailId, stock);
 
-        var item = itemDetailMapper.getItemDetailById(detailId);
+        var item = itemDetailMapper.findItemDetailById(detailId);
         Assertions.assertEquals(stock, item.getStock());
     }
 

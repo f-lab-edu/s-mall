@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class ItemException extends RuntimeException{
-    protected final ErrorCodes errorCode;
-    protected final String message;
+public class ErrorResponse {
+    final ErrorCodes code;
+    final String message;
 }

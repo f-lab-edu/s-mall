@@ -3,15 +3,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flabedu.small.small.repository.ItemMapper">
+<mapper namespace="com.flabedu.small.small.mapper.ItemMapper">
 
-    <select id="list" resultType="com.flabedu.small.small.data.Item">
+    <select id="list" resultType="com.flabedu.small.small.domain.Item">
         select * from item;
     </select>
 
-    <select id="getItem"
+    <select id="findItemById"
             parameterType="java.lang.Long"
-            resultType="com.flabedu.small.small.data.Item">
+            resultType="com.flabedu.small.small.domain.Item">
         SELECT * FROM item WHERE item_id = #{id}
     </select>
 

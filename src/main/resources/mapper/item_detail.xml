@@ -3,21 +3,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flabedu.small.small.repository.ItemDetailMapper">
+<mapper namespace="com.flabedu.small.small.mapper.ItemDetailMapper">
 
-    <select id="list" resultType="com.flabedu.small.small.data.ItemDetail">
+    <select id="list" resultType="com.flabedu.small.small.domain.ItemDetail">
         SELECT * FROM item_detail
     </select>
 
-    <select id="getItemDetail"
+    <select id="findItemDetail"
             parameterType="map"
-            resultType="com.flabedu.small.small.data.ItemDetail">
+            resultType="com.flabedu.small.small.domain.ItemDetail">
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
-    <select id="getItemDetailById"
+    <select id="findItemDetailById"
             parameterType="long"
-            resultType="com.flabedu.small.small.data.ItemDetail">
+            resultType="com.flabedu.small.small.domain.ItemDetail">
         SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
     </select>
 

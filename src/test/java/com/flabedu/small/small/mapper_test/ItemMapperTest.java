@@ -1,6 +1,6 @@
-package com.flabedu.small.small.service.mapper_test;
+package com.flabedu.small.small.mapper_test;
 
-import com.flabedu.small.small.repository.ItemMapper;
+import com.flabedu.small.small.mapper.ItemMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -23,7 +23,7 @@ class ItemMapperTest {
     public void getItemTest(){
         long id = 1;
 
-        var item = itemMapper.getItem(id);
+        var item = itemMapper.findItemById(id);
 
         Assertions.assertEquals(item.getItemId(), id);
     }

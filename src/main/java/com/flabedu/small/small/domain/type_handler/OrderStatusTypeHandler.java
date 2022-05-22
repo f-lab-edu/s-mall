@@ -1,10 +1,9 @@
-package com.flabedu.small.small.data.type_handler;
+package com.flabedu.small.small.domain.type_handler;
 
-import com.flabedu.small.small.data.Orders;
+import com.flabedu.small.small.domain.Orders;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
-import org.apache.ibatis.type.MappedTypes;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

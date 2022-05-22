@@ -1,18 +1,14 @@
-package com.flabedu.small.small.service.mapper_test;
+package com.flabedu.small.small.mapper_test;
 
-import com.flabedu.small.small.data.OrdersItem;
-import com.flabedu.small.small.repository.ItemDetailMapper;
-import com.flabedu.small.small.repository.ItemMapper;
-import com.flabedu.small.small.repository.OrdersItemMapper;
+import com.flabedu.small.small.domain.OrdersItem;
+import com.flabedu.small.small.mapper.OrdersItemMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @MybatisTest
@@ -25,7 +21,7 @@ class OrdersItemMapperTest {
     @Test
     public void getOrderDetailTest(){
         var id = 1;
-        var item = ordersItemMapper.getOrderDetail(id);
+        var item = ordersItemMapper.findOrderDetailById(id);
         Assertions.assertEquals(item.get(0).getOrdersId(), id);
     }
 
@@ -38,8 +34,8 @@ class OrdersItemMapperTest {
         inputList.add(ordersItem1);
         inputList.add(ordersItem2);
 
-        ordersItemMapper.saveOrderDetail(ordersId, inputList);
-        var confirmList = ordersItemMapper.getOrderDetail(ordersId);
+        ordersItemMapper.saveOrderDetails(ordersId, inputList);
+        var confirmList = ordersItemMapper.findOrderDetailById(ordersId);
         int confirmListSize = confirmList.size();
 
         Assertions.assertEquals(confirmList.get(confirmListSize-2), ordersItem1);

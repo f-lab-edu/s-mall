@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class ItemException extends RuntimeException{
-    protected final ErrorCodes errorCode;
-    protected final String message;
+public enum MemberErrorCodes implements ErrorCodes {
+    CANNOT_FIND_USER("cannot find user"),
+    ;
+    final String code;
 }

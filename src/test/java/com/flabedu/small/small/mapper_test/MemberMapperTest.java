@@ -1,14 +1,11 @@
-package com.flabedu.small.small.service.mapper_test;
+package com.flabedu.small.small.mapper_test;
 
-import com.flabedu.small.small.repository.ItemDetailMapper;
-import com.flabedu.small.small.repository.ItemMapper;
-import com.flabedu.small.small.repository.MemberMapper;
+import com.flabedu.small.small.mapper.MemberMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -26,7 +23,7 @@ class MemberMapperTest {
     public void getItemTest(){
         String id = "test_user";
 
-        var item = memberMapper.getMember(id);
+        var item = memberMapper.findMemberById(id);
 
         Assertions.assertEquals(item.getUserId(), id);
     }

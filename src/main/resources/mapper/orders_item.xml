@@ -3,14 +3,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flabedu.small.small.repository.OrdersItemMapper">
-    <resultMap id="ordersItemMap" type="com.flabedu.small.small.data.OrdersItem">
+<mapper namespace="com.flabedu.small.small.mapper.OrdersItemMapper">
+    <resultMap id="ordersItemMap" type="com.flabedu.small.small.domain.OrdersItem">
         <id property="itemId" column="itemId"/>
         <id property="itemDetailId" column="itemDetailId"/>
         <id property="ordersItemCount" column="rdersItemCount"/>
         <id property="price" column="price"/>
     </resultMap>
-    <insert id="saveOrderDetail"
+    <insert id="saveOrderDetails"
             parameterType="map"
     >
         Insert into orders_item(
@@ -23,9 +23,9 @@
             </foreach>
     </insert>
 
-    <select id="getOrderDetail"
+    <select id="findOrderDetailById"
             parameterType="long"
-            resultType="com.flabedu.small.small.data.OrdersItem">
+            resultType="com.flabedu.small.small.domain.OrdersItem">
         select * from orders_item where orders_id = #{ordersId}
     </select>
 
