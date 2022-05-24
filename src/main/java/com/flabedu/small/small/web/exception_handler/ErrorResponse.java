@@ -6,5 +6,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class ErrorResponse {
-    final com.flabedu.small.small.exception.ErrorResponse error;
+    final String code;
+    final String message;
 }

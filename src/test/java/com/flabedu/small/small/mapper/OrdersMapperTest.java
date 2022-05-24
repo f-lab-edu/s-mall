@@ -1,7 +1,6 @@
-package com.flabedu.small.small.mapper_test;
+package com.flabedu.small.small.mapper;
 
 import com.flabedu.small.small.domain.Orders;
-import com.flabedu.small.small.mapper.OrdersMapper;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;

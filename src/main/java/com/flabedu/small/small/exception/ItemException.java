@@ -1,11 +1,8 @@
 package com.flabedu.small.small.exception;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+public class ItemException extends BaseException{
 
-@Getter
-@RequiredArgsConstructor
-public class ItemException extends RuntimeException{
-    protected final ErrorCodes errorCode;
-    protected final String message;
+    public ItemException(ErrorCodes errorCode, String message) {
+        super(errorCode, message);
+    }
 }

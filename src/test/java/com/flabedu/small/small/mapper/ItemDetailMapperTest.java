@@ -1,6 +1,5 @@
-package com.flabedu.small.small.mapper_test;
+package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.mapper.ItemDetailMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
