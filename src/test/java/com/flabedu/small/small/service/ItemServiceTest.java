@@ -1,11 +1,10 @@
-package service;
+package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.model.GenderEnum;
 import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.model.ItemDetail;
 import com.flabedu.small.small.model.SizeEnum;
 import com.flabedu.small.small.repository.ItemRepository;
-import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.dto.ItemDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +17,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.verify;
+
 @ExtendWith(MockitoExtension.class)
 public class ItemServiceTest {
 
@@ -28,14 +31,14 @@ public class ItemServiceTest {
     private ItemService itemService;
 
     private ItemDetail itemDetail;
-    private Item item;
+    private ItemDTO item;
 
     @BeforeEach
     void setUp() {
         itemDetail = ItemDetail.builder()
                 .size(SizeEnum.M).stock(100l).build();
 
-        ItemDTO item = ItemDTO.builder()
+        item = ItemDTO.builder()
                 .itemNameKr("test1")
                 .itemNameEn(null)
                 .subCategory(3l)
@@ -48,10 +51,13 @@ public class ItemServiceTest {
 
     @Test
     @DisplayName("상품 등록")
-    public void addItem_ValidData(){
-
+    public void addItemTest(){
         itemService.addItem(item);
-        //Assertions.assertThatThrownBy(()->itemService.addItem(item)).isInstanceOf(CustomException.class);
+
+        verify(itemRepository).addItem(any(Item.class));
+        verify(itemRepository).addItemCategory(any(Item.class));
+        verify(itemRepository).addItemImage(any(),anyList());
+        verify(itemRepository).addItemDetail(any(),anyList());
     }
 
 }

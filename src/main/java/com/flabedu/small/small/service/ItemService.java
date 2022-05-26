@@ -31,7 +31,7 @@ public class ItemService {
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
-        Long id = itemRepository.addItem(item);
+        itemRepository.addItem(item);
 
         itemRepository.addItemCategory(item);
         itemRepository.addItemImage(item.getItemId(), item.getItemImages());
