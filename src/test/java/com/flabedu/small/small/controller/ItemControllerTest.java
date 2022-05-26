@@ -57,7 +57,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    @DisplayName("/items POST 상품 등록 실패")
+    @DisplayName("상품 등록 실패")
     public void addItemInvalidArgument() throws Exception {
         ItemDTO inValidItemDTO = ItemDTO.builder()
                 .itemNameKr("테스트 아이템")
@@ -82,7 +82,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    @DisplayName("/items POST 상품 등록")
+    @DisplayName("상품 등록 성공")
     public void addItemSuccess() throws Exception {
         String content = objectMapper.writeValueAsString(itemDTO);
 

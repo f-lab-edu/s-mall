@@ -29,6 +29,4 @@ public class ItemController {
         itemService.addItem(newItem);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-
 }
