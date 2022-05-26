@@ -1,12 +1,10 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.domain.Item;
-import com.flabedu.small.small.exception.CustomException;
+import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.web.dto.ItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;

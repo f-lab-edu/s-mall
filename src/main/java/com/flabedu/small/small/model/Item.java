@@ -1,13 +1,11 @@
-package com.flabedu.small.small.domain;
+package com.flabedu.small.small.model;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Builder

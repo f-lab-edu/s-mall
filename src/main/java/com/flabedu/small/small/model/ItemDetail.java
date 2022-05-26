@@ -1,4 +1,4 @@
-package com.flabedu.small.small.domain;
+package com.flabedu.small.small.model;
 
 import lombok.Builder;
 import lombok.Getter;
