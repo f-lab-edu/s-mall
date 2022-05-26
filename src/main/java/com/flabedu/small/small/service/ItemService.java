@@ -32,7 +32,6 @@ public class ItemService {
                 .build();
 
         itemRepository.addItem(item);
-
         itemRepository.addItemCategory(item);
         itemRepository.addItemImage(item.getItemId(), item.getItemImages());
         itemRepository.addItemDetail(item.getItemId(), item.getItemDetails());

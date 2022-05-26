@@ -16,8 +16,6 @@ import java.util.List;
 @Builder
 public class ItemDTO {
 
-    private Long itemId;
-
     @NotBlank(message = "상품을 입력해주세요.")
     private String itemNameKr;
 
@@ -41,6 +39,5 @@ public class ItemDTO {
 
     @Size(min = 1, message = "상품 사이즈에 대한 재고를 최소 1개 이상 입력해주세요.")
     private List<ItemDetail> itemDetails;
-
 
 }
