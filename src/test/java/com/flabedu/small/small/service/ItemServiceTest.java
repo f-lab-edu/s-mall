@@ -50,7 +50,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    @DisplayName("상품 등록")
+    @DisplayName("상품 등록 시 필요한 메소드가 모두 호출된다.")
     public void addItemTest(){
         itemService.addItem(item);
 
