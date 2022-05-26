@@ -20,15 +20,15 @@
         values (#{itemId},#{subCategory}, #{registUserId}, now())
     </insert>
 
-    <insert id="addItemImage" parameterType="java.util.Map">
+    <insert id="addItemImage" parameterType="map">
         insert into item_image (item_id,seq,filename)
         values
-        <foreach collection="images" separator="," item="image" index="i">
+        <foreach collection="itemImages" separator="," item="image" index="i">
             (#{itemId}, #{i}+1, #{image})
         </foreach>
     </insert>
 
-    <insert id="addItemDetail" parameterType="java.util.List">
+    <insert id="addItemDetail" parameterType="map">
         insert into item_detail (item_id,stock,size)
         values
         <foreach collection="itemDetails" separator="," item="itemDetail">

@@ -7,17 +7,18 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-@Getter @Setter
+@Getter
 @Builder
 public class Item {
 
-    private long itemId;
+    private Long itemId;
     private String name;
     private String engName;
     private GenderEnum gender;
     private BigDecimal price;
-    private long subCategory;
+    private Long subCategory;
     private List<String> itemImages;
     private List<ItemDetail> itemDetails;
     private String registUserId;

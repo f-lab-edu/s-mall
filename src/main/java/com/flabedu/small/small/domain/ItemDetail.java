@@ -1,14 +1,16 @@
 package com.flabedu.small.small.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
+@Builder
 public class ItemDetail {
 
-    private long itemDetailId;
-    private long itemId;
-    private long stock;
-    private String size;
+    private Long itemDetailId;
+    private Long itemId;
+    private Long stock;
+    private SizeEnum size;
 
 }
