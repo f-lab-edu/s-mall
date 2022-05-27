@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ItemDetail {
-    private Long itemDetailId;
+public class ItemImage {
+    private Long itemImageId;
     private Long itemId;
-    private SizeEnum size;
-    private Long stock;
+    private Long seq;
+    private String filename;
 }

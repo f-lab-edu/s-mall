@@ -1,7 +1,7 @@
 package com.flabedu.small.small.web.dto;
 
 import com.flabedu.small.small.model.GenderEnum;
-import com.flabedu.small.small.model.ItemDetail;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -38,6 +38,6 @@ public class ItemDTO {
     private List<String> itemImages;
 
     @Size(min = 1, message = "상품 사이즈에 대한 재고를 최소 1개 이상 입력해주세요.")
-    private List<ItemDetail> itemDetails;
+    private List<ItemDetailDTO> itemDetails;
 
 }

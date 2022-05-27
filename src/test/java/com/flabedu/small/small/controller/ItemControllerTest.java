@@ -2,11 +2,11 @@ package com.flabedu.small.small.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flabedu.small.small.model.GenderEnum;
-import com.flabedu.small.small.model.ItemDetail;
 import com.flabedu.small.small.model.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
 import com.flabedu.small.small.web.dto.ItemDTO;
+import com.flabedu.small.small.web.dto.ItemDetailDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,15 +36,15 @@ public class ItemControllerTest {
     @MockBean
     private ItemService itemService;
 
-    private ItemDetail itemDetail;
-    private ItemDTO itemDTO;
+    private ItemDetailDTO itemDetail;
+    private ItemDTO item;
 
     @BeforeEach
     void setUp() {
-        itemDetail = ItemDetail.builder()
+        itemDetail = ItemDetailDTO.builder()
                 .size(SizeEnum.M).stock(100l).build();
 
-        itemDTO = ItemDTO.builder()
+        item = ItemDTO.builder()
                 .itemNameKr("테스트 아이템")
                 .itemNameEn("test item")
                 .category(1l)
@@ -84,7 +84,7 @@ public class ItemControllerTest {
     @Test
     @DisplayName("상품 등록 성공")
     public void addItemSuccess() throws Exception {
-        String content = objectMapper.writeValueAsString(itemDTO);
+        String content = objectMapper.writeValueAsString(item);
 
         ResultActions actions = mockMvc.perform(
                 post("/items")

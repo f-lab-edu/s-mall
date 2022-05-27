@@ -2,10 +2,10 @@ package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.model.GenderEnum;
 import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.model.ItemDetail;
 import com.flabedu.small.small.model.SizeEnum;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.web.dto.ItemDTO;
+import com.flabedu.small.small.web.dto.ItemDetailDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,12 +30,12 @@ public class ItemServiceTest {
     @InjectMocks
     private ItemService itemService;
 
-    private ItemDetail itemDetail;
+    private ItemDetailDTO itemDetail;
     private ItemDTO item;
 
     @BeforeEach
     void setUp() {
-        itemDetail = ItemDetail.builder()
+        itemDetail = ItemDetailDTO.builder()
                 .size(SizeEnum.M).stock(100l).build();
 
         item = ItemDTO.builder()

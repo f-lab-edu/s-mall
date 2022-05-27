@@ -3,11 +3,13 @@ package com.flabedu.small.small.service;
 import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.web.dto.ItemDTO;
+import com.flabedu.small.small.web.dto.ItemDetailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +26,11 @@ public class ItemService {
                 .gender(newItem.getGender())
                 .price(newItem.getPrice())
                 .itemImages(newItem.getItemImages())
-                .itemDetails(newItem.getItemDetails())
+                .itemDetails(
+                        newItem.getItemDetails().stream()
+                                .map(ItemDetailDTO::convertToModel)
+                                .collect(Collectors.toList())
+                )
                 .registUserId("admin")
                 .registDate(LocalDateTime.now())
                 .modifiedUserId("admin")
