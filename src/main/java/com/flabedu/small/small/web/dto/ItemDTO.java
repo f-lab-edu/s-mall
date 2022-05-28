@@ -1,6 +1,6 @@
 package com.flabedu.small.small.web.dto;
 
-import com.flabedu.small.small.model.GenderEnum;
+import com.flabedu.small.small.model.enums.GenderEnum;
 
 import lombok.Builder;
 import lombok.Getter;

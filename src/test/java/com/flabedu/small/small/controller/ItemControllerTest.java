@@ -1,8 +1,8 @@
 package com.flabedu.small.small.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flabedu.small.small.model.GenderEnum;
-import com.flabedu.small.small.model.SizeEnum;
+import com.flabedu.small.small.model.enums.GenderEnum;
+import com.flabedu.small.small.model.enums.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
 import com.flabedu.small.small.web.dto.ItemDTO;
@@ -57,11 +57,25 @@ public class ItemControllerTest {
     }
 
     @Test
-    @DisplayName("상품 등록 실패")
-    public void addItemInvalidArgument() throws Exception {
+    @DisplayName("상품 등록 성공")
+    public void addItemSuccess() throws Exception {
+        String content = objectMapper.writeValueAsString(item);
+
+        ResultActions actions = mockMvc.perform(
+                post("/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+        ).andExpect(
+                status().isCreated()
+        ).andDo(print());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 파라미터로 인한 상품 등록 실패")
+    public void addItemFailWhenInvalidArgument() throws Exception {
         ItemDTO inValidItemDTO = ItemDTO.builder()
-                .itemNameKr("테스트 아이템")
-                .itemNameEn("test item")
+                .itemNameKr("유효하지 않은 파라미터")
+                .itemNameEn("Fail When Invalid Argument")
                 .category(1l)
                 .subCategory(3l)
                 .gender(GenderEnum.C)
@@ -82,16 +96,50 @@ public class ItemControllerTest {
     }
 
     @Test
-    @DisplayName("상품 등록 성공")
-    public void addItemSuccess() throws Exception {
-        String content = objectMapper.writeValueAsString(item);
+    @DisplayName("부족한 파라미터 개수로 인한 상품 등록 실패")
+    public void addItemFailWhenMissingArgument() throws Exception {
+        ItemDTO inValidItemDTO = ItemDTO.builder()
+                .itemNameKr("파라미터 개수 부족")
+                .itemNameEn("Fail When Missing Argument")
+                .category(1l)
+                .price(new BigDecimal(20000))
+                .itemImages(Arrays.asList("img1.png","img2.png"))
+                .itemDetails(Arrays.asList(itemDetail))
+                .build();
+
+        String content = objectMapper.writeValueAsString(inValidItemDTO);
 
         ResultActions actions = mockMvc.perform(
                 post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
         ).andExpect(
-                status().isCreated()
+                status().isBadRequest()
+        ).andDo(print());
+    }
+
+    @Test
+    @DisplayName("DB 에러로 인한 상품 등록 실패")
+    public void addItemFailWhenDatabase() throws Exception {
+        ItemDTO inValidItemDTO = ItemDTO.builder()
+                .itemNameKr("데이터베이스 에러")
+                .itemNameEn("Fail When Database Error")
+                .category(1l)
+                .subCategory(3l)
+                .gender(GenderEnum.C)
+                .price(new BigDecimal(20000))
+                .itemImages(Arrays.asList("img1.png","img2.png"))
+                .itemDetails(Arrays.asList(itemDetail))
+                .build();
+
+        String content = objectMapper.writeValueAsString(inValidItemDTO);
+
+        ResultActions actions = mockMvc.perform(
+                post("/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+        ).andExpect(
+                status().isBadRequest()
         ).andDo(print());
     }
 

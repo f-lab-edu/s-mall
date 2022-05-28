@@ -1,8 +1,8 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.model.GenderEnum;
+import com.flabedu.small.small.model.enums.GenderEnum;
 import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.model.SizeEnum;
+import com.flabedu.small.small.model.enums.SizeEnum;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.web.dto.ItemDTO;
 import com.flabedu.small.small.web.dto.ItemDetailDTO;

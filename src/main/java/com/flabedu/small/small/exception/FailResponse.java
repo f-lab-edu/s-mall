@@ -18,5 +18,4 @@ public class FailResponse {
     private String message;
     private LocalDateTime timestamp;
     private List<String> errors;
-
 }

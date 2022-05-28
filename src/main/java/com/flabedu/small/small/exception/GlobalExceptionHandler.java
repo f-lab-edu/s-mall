@@ -23,31 +23,30 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleException(MethodArgumentNotValidException ex){
+        ErrorCode errorCode = ErrorCode.INVALID_ARGUMENT;
+
         List<String> errors = ex.getBindingResult().getAllErrors()
                 .stream().map(e -> e.getDefaultMessage())
                 .collect(Collectors.toList());
 
         FailResponse response = FailResponse.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
-                .message(HttpStatus.BAD_REQUEST.name())
+                .status(errorCode.getStatus())
+                .message(errorCode.getMessage())
                 .timestamp(LocalDateTime.now())
                 .errors(errors).build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(errorCode.getStatus()).body(response);
     }
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<Object> handleException(CustomException e){
-        List<String> errors = new ArrayList<>();
-        errors.add(e.getMessage());
-
         FailResponse response = FailResponse.builder()
-                .status(e.getHttpStatus().value())
-                .message(e.getHttpStatus().name())
+                .status(e.getErrorCode().getStatus())
+                .message(e.getErrorCode().getMessage())
                 .timestamp(LocalDateTime.now())
-                .errors(errors).build();
+                .errors(null).build();
 
-        return ResponseEntity.status(e.getHttpStatus()).body(response);
+        return ResponseEntity.status(e.getErrorCode().getStatus()).body(response);
     }
 
 }

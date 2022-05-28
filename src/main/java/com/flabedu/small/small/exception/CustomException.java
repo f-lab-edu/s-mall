@@ -11,6 +11,5 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class CustomException extends RuntimeException {
-    private HttpStatus httpStatus;
-    private String message;
+    private ErrorCode errorCode;
 }

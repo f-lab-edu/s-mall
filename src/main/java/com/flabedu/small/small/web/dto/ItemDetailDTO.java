@@ -1,7 +1,7 @@
 package com.flabedu.small.small.web.dto;
 
 import com.flabedu.small.small.model.ItemDetail;
-import com.flabedu.small.small.model.SizeEnum;
+import com.flabedu.small.small.model.enums.SizeEnum;
 
 import lombok.Builder;
 import lombok.Getter;
