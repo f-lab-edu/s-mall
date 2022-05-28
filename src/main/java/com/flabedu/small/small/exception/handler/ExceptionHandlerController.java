@@ -1,4 +1,4 @@
-package com.flabedu.small.small.web.exception_handler;
+package com.flabedu.small.small.exception.handler;
 
 import com.flabedu.small.small.exception.*;
 import org.springframework.http.HttpStatus;
@@ -10,13 +10,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({CannotFindItemDetailException.class, CannotFindItemException.class, MemberException.class})
-    public ResponseEntity<Object> handleItemDetail(ItemException e){
+    @ExceptionHandler({CustomException.class})
+    public ResponseEntity<Object> handleItemDetail(CustomException e){
         return getErrorResponse(HttpStatus.BAD_REQUEST, e);
     }
 
-    private ResponseEntity<Object> getErrorResponse(HttpStatus status, BaseException e){
-        return ResponseEntity.status(status).body(new ErrorResponse(e.getErrorCode().getCode(), e.getMessage()));
+    private ResponseEntity<Object> getErrorResponse(HttpStatus status, CustomException e){
+        return ResponseEntity.status(status).body(new ErrorResponse(e.getErrorCode().getCode(), e.getErrorCode().getMessage()));
     }
 
 }

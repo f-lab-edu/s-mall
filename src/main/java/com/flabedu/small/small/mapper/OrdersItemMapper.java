@@ -1,6 +1,6 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.domain.OrdersItem;
+import com.flabedu.small.small.model.OrdersItem;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

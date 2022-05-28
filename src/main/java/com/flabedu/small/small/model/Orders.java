@@ -1,4 +1,4 @@
-package com.flabedu.small.small.domain;
+package com.flabedu.small.small.model;
 
 import lombok.*;
 
@@ -7,18 +7,18 @@ import java.util.Arrays;
 
 @Data
 public class Orders {
-    final long orderId;
-    final long memberId;
-    final long totalPrice;
-    final LocalDateTime ordersDate;
-    final OrderStatus status;
-    final LocalDateTime modifiedDate;
+    private final long orderId;
+    private final long memberId;
+    private final long totalPrice;
+    private final LocalDateTime ordersDate;
+    private final OrderStatus status;
+    private final LocalDateTime modifiedDate;
 
     @Getter
     @RequiredArgsConstructor
     public enum OrderStatus{
         SUCCEED("S"), CANCEL("C");
-        final String status;
+        private final String status;
 
         public static OrderStatus findOrderStatus(String status){
             return Arrays.stream(OrderStatus.values())

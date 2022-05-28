@@ -5,19 +5,19 @@
 
 <mapper namespace="com.flabedu.small.small.mapper.ItemDetailMapper">
 
-    <select id="list" resultType="com.flabedu.small.small.domain.ItemDetail">
+    <select id="list" resultType="com.flabedu.small.small.model.ItemDetail">
         SELECT * FROM item_detail
     </select>
 
     <select id="findItemDetail"
             parameterType="map"
-            resultType="com.flabedu.small.small.domain.ItemDetail">
+            resultType="com.flabedu.small.small.model.ItemDetail">
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
     <select id="findItemDetailById"
             parameterType="long"
-            resultType="com.flabedu.small.small.domain.ItemDetail">
+            resultType="com.flabedu.small.small.model.ItemDetail">
         SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
     </select>
 

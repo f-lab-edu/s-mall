@@ -1,6 +1,6 @@
-package com.flabedu.small.small.domain.type_handler;
+package com.flabedu.small.small.model.type_handler;
 
-import com.flabedu.small.small.domain.Orders;
+import com.flabedu.small.small.model.Orders;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;

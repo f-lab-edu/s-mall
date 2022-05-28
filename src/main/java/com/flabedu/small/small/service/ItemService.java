@@ -1,11 +1,11 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.domain.*;
+import com.flabedu.small.small.model.*;
 import com.flabedu.small.small.exception.*;
 import com.flabedu.small.small.repository.ItemRepository;
 import com.flabedu.small.small.repository.MemberRepository;
 import com.flabedu.small.small.repository.OrdersRepository;
-import com.flabedu.small.small.web.dto.request.ItemsProductDTO;
+import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +19,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemService {
 
-    final ItemRepository itemRepository;
-    final MemberRepository memberRepository;
-    final OrdersRepository ordersRepository;
+    private final ItemRepository itemRepository;
+    private final MemberRepository memberRepository;
+    private final OrdersRepository ordersRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void purchaseItem(ItemsProductDTO itemInfo, String userID){
+    public void purchaseItem(OrderRequestDTO itemInfo, String userID){
         Member user = memberRepository.findMemberById(userID);
-        if(user == null) throw new CannotFindMemberException(MemberErrorCodes.CANNOT_FIND_USER , "로그인 되지 않음");
+        if(user == null) throw new CustomException(ErrorCodes.CANNOT_FIND_USER);
 
         List<OrdersItem> ordersItems = createOrderItems(itemInfo.getOrders());
         saveOrders(user, ordersItems);
@@ -43,7 +43,7 @@ public class ItemService {
     }
 
 
-    private List<OrdersItem> createOrderItems(List<ItemsProductDTO.OrderItem> itemInfo)
+    private List<OrdersItem> createOrderItems(List<OrderRequestDTO.OrderItem> itemInfo)
     {
         List<OrdersItem> ordersItems = new LinkedList<>();
 
@@ -51,9 +51,9 @@ public class ItemService {
             Item item = itemRepository.findItemById(ordersItem.getItemId());
             ItemDetail detail = itemRepository.findItemDetail(ordersItem.getItemId(), ordersItem.getSize());
 
-            if(item == null) throw new CannotFindItemException(ItemErrorCodes.CANNOT_FIND_ITEM, "존재하지 않은 Item");
-            if(detail == null) throw new CannotFindItemDetailException(ItemErrorCodes.CANNOT_FIND_ITEM_DETAIL, "존재하지 않은 아이템 사이즈");
-            if(detail.getStock() - ordersItem.getCount() < 0) throw new NoStockException(ItemErrorCodes.NO_STOCK, "재고 없음");
+            if(item == null) throw new CustomException(ErrorCodes.CANNOT_FIND_ITEM);
+            if(detail == null) throw new CustomException(ErrorCodes.CANNOT_FIND_ITEM_DETAIL);
+            if(detail.getStock() - ordersItem.getCount() < 0) throw new CustomException(ErrorCodes.NO_STOCK);
 
             itemRepository.setItemStock(
                     detail.getItemDetailId(),

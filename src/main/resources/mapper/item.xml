@@ -5,13 +5,13 @@
 
 <mapper namespace="com.flabedu.small.small.mapper.ItemMapper">
 
-    <select id="list" resultType="com.flabedu.small.small.domain.Item">
+    <select id="list" resultType="com.flabedu.small.small.model.Item">
         select * from item;
     </select>
 
     <select id="findItemById"
             parameterType="java.lang.Long"
-            resultType="com.flabedu.small.small.domain.Item">
+            resultType="com.flabedu.small.small.model.Item">
         SELECT * FROM item WHERE item_id = #{id}
     </select>
 

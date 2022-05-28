@@ -5,13 +5,13 @@
 
 <mapper namespace="com.flabedu.small.small.mapper.MemberMapper">
 
-    <select id="list" resultType="com.flabedu.small.small.domain.Member">
+    <select id="list" resultType="com.flabedu.small.small.model.Member">
         select * from member;
     </select>
 
     <select id="findMemberById"
             parameterType="java.lang.String"
-            resultType="com.flabedu.small.small.domain.Member">
+            resultType="com.flabedu.small.small.model.Member">
         Select * From member where USERID = #{userID}
     </select>
 

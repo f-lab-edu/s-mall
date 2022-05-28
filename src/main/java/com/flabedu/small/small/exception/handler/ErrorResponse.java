@@ -1,4 +1,4 @@
-package com.flabedu.small.small.exception;
+package com.flabedu.small.small.exception.handler;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class ErrorResponse {
-    final ErrorCodes code;
+    final int code;
     final String message;
 }

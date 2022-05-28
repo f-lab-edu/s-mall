@@ -1,7 +1,7 @@
 package com.flabedu.small.small.repository;
 
-import com.flabedu.small.small.domain.Item;
-import com.flabedu.small.small.domain.ItemDetail;
+import com.flabedu.small.small.model.Item;
+import com.flabedu.small.small.model.ItemDetail;
 import com.flabedu.small.small.mapper.ItemDetailMapper;
 import com.flabedu.small.small.mapper.ItemMapper;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class ItemRepository {
-    final ItemDetailMapper itemDetailMapper;
-    final ItemMapper itemMapper;
+    private final ItemDetailMapper itemDetailMapper;
+    private final ItemMapper itemMapper;
 
     public Item findItemById(long id){
         return itemMapper.findItemById(id);
