@@ -11,13 +11,13 @@
         <selectKey order="AFTER" resultType="long" keyProperty="itemId">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into item (name, engname, gender, price, regist_userid, regist_date)
-        values (#{name}, #{engName}, #{gender}, #{price}, #{registUserId}, now())
+        insert into item (name, engname, gender, price, regist_userid, regist_date, modified_userid, modified_date)
+        values (#{name}, #{engName}, #{gender}, #{price}, #{registUserId}, #{registDate}, #{modifiedUserId}, #{modifiedDate})
     </insert>
 
     <insert id="addItemCategory" parameterType="com.flabedu.small.small.model.Item">
-        insert into item_category (item_id, category_id,regist_userid,regist_date)
-        values (#{itemId},#{subCategory}, #{registUserId}, now())
+        insert into item_category (item_id, category_id, regist_userid, regist_date, modified_userid, modified_date)
+        values (#{itemId},#{subCategory}, #{registUserId}, #{registDate}, #{modifiedUserId}, #{modifiedDate})
     </insert>
 
     <insert id="addItemImage" parameterType="map">

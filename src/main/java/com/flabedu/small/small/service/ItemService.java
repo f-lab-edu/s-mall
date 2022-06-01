@@ -20,7 +20,7 @@ public class ItemService {
     @Transactional
     public void addItem(ItemDTO newItem) {
         Item item = Item.builder()
-                .name(newItem.getItemNameKr())
+                .name(newItem.getItemName())
                 .engName(newItem.getItemNameEn())
                 .subCategory(newItem.getSubCategory())
                 .gender(newItem.getGender())

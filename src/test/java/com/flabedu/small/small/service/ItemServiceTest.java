@@ -1,5 +1,7 @@
 package com.flabedu.small.small.service;
 
+import com.flabedu.small.small.exception.CustomErrorCode;
+import com.flabedu.small.small.exception.CustomException;
 import com.flabedu.small.small.model.enums.GenderEnum;
 import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.model.enums.SizeEnum;
@@ -39,7 +41,7 @@ public class ItemServiceTest {
                 .size(SizeEnum.M).stock(100l).build();
 
         item = ItemDTO.builder()
-                .itemNameKr("test1")
+                .itemName("test1")
                 .itemNameEn(null)
                 .subCategory(3l)
                 .gender(GenderEnum.C)
