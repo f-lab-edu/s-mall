@@ -1,6 +1,8 @@
 package com.flabedu.small.small.model;
 
-import lombok.*;
+import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 public class OrdersItem {
@@ -8,5 +10,5 @@ public class OrdersItem {
     private final long itemId;
     private final long itemDetailId;
     private final long ordersItemCount;
-    private final long price;
+    private final BigDecimal price;
 }

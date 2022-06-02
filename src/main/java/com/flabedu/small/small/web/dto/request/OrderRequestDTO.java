@@ -6,15 +6,14 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 public class OrderRequestDTO {
 
     @NotEmpty(message = "주문 아이템이 한개 이상이여야합니다.")
-    private List<@Valid OrderItem> orders = new LinkedList<>();
+    private final List<@Valid OrderItem> orders = new ArrayList<>();
 
     @Getter
     @Setter

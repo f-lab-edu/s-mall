@@ -1,11 +1,13 @@
 package com.flabedu.small.small.mapper;
 
 import com.flabedu.small.small.model.Orders;
+import com.flabedu.small.small.model.enums.OrderStatus;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -23,7 +25,7 @@ class OrdersMapperTest {
     public void insertOrders_Get_OrderID_Test(){
         int inputOrderId = -1;
         var curTime =LocalDateTime.now();
-        var orders = new Orders(inputOrderId, 2, 300,  curTime,Orders.OrderStatus.SUCCEED, curTime);
+        var orders = new Orders(inputOrderId, 2, BigDecimal.valueOf(300),  curTime, OrderStatus.SUCCEED, curTime);
 
         ordersMapper.insertOrders(orders);
 
@@ -34,7 +36,7 @@ class OrdersMapperTest {
     public void insertOrders_Insert_Row_Test(){
         var curTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         System.out.println(curTime);
-        var orders = new Orders(0, 2, 300,  curTime, Orders.OrderStatus.SUCCEED,curTime);
+        var orders = new Orders(0, 2, BigDecimal.valueOf(300),  curTime, OrderStatus.SUCCEED,curTime);
 
         ordersMapper.insertOrders(orders);
         var readOrders = ordersMapper.findOrdersById(orders.getOrderId());

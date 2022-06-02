@@ -21,8 +21,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import java.util.List;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -63,7 +61,7 @@ public class OrderControllerTest {
         orderItem.setItemId(1);
         orderItem.setCount(3);
         orderItem.setSize("중");
-        testDto.setOrders(List.of(orderItem));
+        testDto.getOrders().add(orderItem);
     }
 
     @Test
@@ -81,19 +79,19 @@ public class OrderControllerTest {
     }
 
     @Test
-    @DisplayName("CANNOT_FIND_ITEM 예외를 발생하면 응답 코드 400과 에러 코드, 메시지를 전달한다.")
+    @DisplayName("CANNOT_FIND_ITEM 예외를 발생하면 응답 코드 700과 에러 코드, 메시지를 전달한다.")
     void purchaseItemCannotFindItemException() throws Exception{
         exceptionTest(new CustomException(ErrorCodes.CANNOT_FIND_ITEM));
     }
 
     @Test
-    @DisplayName("CANNOT_FIND_ITEM_DETAIL 예외를 발생하면 응답 코드 400과 에러코드, 메시지를 전달한다.")
+    @DisplayName("CANNOT_FIND_ITEM_DETAIL 예외를 발생하면 응답 코드 701과 에러코드, 메시지를 전달한다.")
     void purchaseItemCannotFindItemDetailException() throws Exception{
         exceptionTest(new CustomException(ErrorCodes.CANNOT_FIND_ITEM_DETAIL));
     }
 
     @Test
-    @DisplayName("NO_STOCK 예외를 발생하면 응답 코드 400과 에러코드, 메시지를 전달한다.")
+    @DisplayName("NO_STOCK 예외를 발생하면 응답 코드 800과 에러코드, 메시지를 전달한다.")
     void purchaseItemNoStockException() throws Exception{
         exceptionTest(new CustomException(ErrorCodes.NO_STOCK));
     }
@@ -112,7 +110,6 @@ public class OrderControllerTest {
                 .andDo(print());
     }
 
-
     private void exceptionTest(CustomException expectException) throws Exception {
         doThrow(expectException)
                 .when(itemService)
@@ -125,9 +122,8 @@ public class OrderControllerTest {
         );
 
         actions.andDo(print())
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.code", equalTo(expectException.getErrorCode().getCode())))
                 .andExpect(jsonPath("$.message", equalTo(expectException.getErrorCode().getMessage())));
-
     }
 }

@@ -12,7 +12,7 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({CustomException.class})
     public ResponseEntity<Object> handleItemDetail(CustomException e){
-        return getErrorResponse(HttpStatus.BAD_REQUEST, e);
+        return getErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e);
     }
 
     private ResponseEntity<Object> getErrorResponse(HttpStatus status, CustomException e){

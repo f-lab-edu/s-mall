@@ -23,7 +23,7 @@ public class OrderController {
     @PostMapping("/product")
     public ResponseEntity<String> orderItem(@Valid @RequestBody OrderRequestDTO purchaseItem, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            bindingResult.getAllErrors().forEach(c-> log.error(c.toString()));
+            bindingResult.getAllErrors().forEach(c-> log.error(c.getDefaultMessage()));
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         service.purchaseItem(purchaseItem, "test_user");
