@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,7 +45,7 @@ public class ItemService {
 
     private List<OrdersItem> createOrderItems(List<OrderRequestDTO.OrderItem> itemInfo)
     {
-        List<OrdersItem> ordersItems = new LinkedList<>();
+        List<OrdersItem> ordersItems = new ArrayList<>();
 
         itemInfo.forEach(ordersItem-> {
             Item item = itemMapper.findItemById(ordersItem.getItemId());

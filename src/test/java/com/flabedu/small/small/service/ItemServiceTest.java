@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -38,9 +39,16 @@ public class ItemServiceTest  {
     @MockBean
     MemberMapper memberMapper;
 
+    @MockBean
+    OrdersItemMapper ordersItemMapper;
+
+    @MockBean
+    OrdersMapper ordersMapper;
+
     Member dummyMember = new Member(1,"a", "b",3, "c", LocalDateTime.now(), LocalDateTime.now());
     OrderRequestDTO dummyDto = new OrderRequestDTO();
     Item dummyItem = new Item(1, "a","b","c", BigDecimal.valueOf(2),"d",null, "e", null);
+    ItemDetail dummyItemDetail = new ItemDetail(1, 2, 5, "중");
 
     @BeforeEach
     public void prepareDummy(){
@@ -48,6 +56,20 @@ public class ItemServiceTest  {
         var orderItem = new OrderRequestDTO.OrderItem();
         orderItem.setCount(3);
         dummyDto.getOrders().add(orderItem);
+    }
+
+    @Test
+    @DisplayName("올바른 호출 시 ordersMapper의 insert가 호출되고 orderItemMapper의 saveOrderDetails가 호출된다.")
+    public void correct(){
+        when(memberMapper.findMemberById(any())).thenReturn(dummyMember);
+        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
+        when(itemDetailMapper.findItemDetail(anyLong(), any()))
+                .thenReturn(dummyItemDetail);
+
+        itemService.purchaseItem(dummyDto, "user");
+
+        verify(ordersMapper).insertOrders(any());
+        verify(ordersItemMapper).saveOrderDetails(anyLong(), any());
     }
 
     @Test
@@ -85,9 +107,9 @@ public class ItemServiceTest  {
     public void noItemStock(){
         when(memberMapper.findMemberById(any())).thenReturn(dummyMember);
         when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
-        when(itemDetailMapper.findItemDetail(anyLong(), any()))
-                .thenReturn(new ItemDetail(1, 2, 2, "중"));
+        when(itemDetailMapper.findItemDetail(anyLong(), any())).thenReturn(dummyItemDetail); // 재고를 2개로 설정
 
+        // dummyDto의 주문 수량은 3개
         CustomException ex = assertThrows(CustomException.class, ()->itemService.purchaseItem(dummyDto, "test user"));
         assertEquals(ErrorCodes.NO_STOCK, ex.getErrorCode());
     }
