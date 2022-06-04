@@ -15,4 +15,6 @@ public interface ItemRepository {
     void addItemCategory(Item item);
     void addItemImage(@Param("itemId") Long itemId, @Param("itemImages") List<String> itemImages);
     void addItemDetail(@Param("itemId") Long itemId, @Param("itemDetails") List<ItemDetail> itemDetails);
+    int countAllItems();
+    int countAllItemDetails();
 }

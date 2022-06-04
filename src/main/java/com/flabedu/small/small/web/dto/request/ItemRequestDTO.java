@@ -1,18 +1,19 @@
-package com.flabedu.small.small.web.dto;
+package com.flabedu.small.small.web.dto.request;
 
 import com.flabedu.small.small.model.enums.GenderEnum;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 @Builder
-public class ItemDTO {
+public class ItemRequestDTO {
 
     @NotBlank(message = "상품명을 입력해주세요.")
     private String itemName;
@@ -40,6 +41,6 @@ public class ItemDTO {
     @Valid
     @NotNull(message = "상품 사이즈 및 재고를 최소 1개 이상 입력해주세요.")
     @Size(min = 1, message = "상품 사이즈 및 재고를 최소 1개 이상 입력해주세요.")
-    private List<ItemDetailDTO> itemDetails;
+    private List<ItemDetailRequestDTO> itemDetails;
 
 }

@@ -2,8 +2,8 @@ package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.repository.ItemRepository;
-import com.flabedu.small.small.web.dto.ItemDTO;
-import com.flabedu.small.small.web.dto.ItemDetailDTO;
+import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
+import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void addItem(ItemDTO newItem) {
+    public void addItem(ItemRequestDTO newItem) {
         Item item = Item.builder()
                 .name(newItem.getItemName())
                 .engName(newItem.getItemNameEn())
@@ -28,7 +28,7 @@ public class ItemService {
                 .itemImages(newItem.getItemImages())
                 .itemDetails(
                         newItem.getItemDetails().stream()
-                                .map(ItemDetailDTO::convertToModel)
+                                .map(ItemDetailRequestDTO::convertToModel)
                                 .collect(Collectors.toList())
                 )
                 .registUserId("admin")
