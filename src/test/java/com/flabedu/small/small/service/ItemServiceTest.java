@@ -45,7 +45,7 @@ public class ItemServiceTest {
                 .subCategory(3l)
                 .gender(GenderEnum.C)
                 .price(new BigDecimal(20000))
-                .itemImages(Arrays.asList("img1.png","img2.png"))
+                .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetailDTO))
                 .build();
     }
