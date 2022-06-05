@@ -94,3 +94,4 @@
 ***
 <h3>협업을 위한 Git 전략</h3>
 <a href="https://github.com/f-lab-edu/s-mall/wiki/Git-%EC%A0%84%EB%9E%B5">Git 전략</a>
+# transaction-propagation
