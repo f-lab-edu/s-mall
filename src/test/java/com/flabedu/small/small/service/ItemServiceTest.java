@@ -73,7 +73,7 @@ public class ItemServiceTest  {
     }
 
     @Test
-    @DisplayName("사용자를 찾을 수 없을 경우 CANNOT_FIND_USER 에러 코드를 갖는 CustomException 을 발생시킨다..")
+    @DisplayName("사용자를 찾을 수 없을 경우 CANNOT_FIND_USER 에러 코드를 갖는 CustomException 을 발생시킨다.")
     public void noMember(){
         when(memberMapper.findMemberById(any())).thenReturn(null);
 
