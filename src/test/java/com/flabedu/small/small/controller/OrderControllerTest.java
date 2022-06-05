@@ -97,7 +97,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    @DisplayName("DTO 값 예외.")
+    @DisplayName("DTO 값 예외. 400 에러 반환")
     void purchaseItemDTOException() throws Exception{
         var dto = new OrderRequestDTO();
 

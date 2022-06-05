@@ -2,6 +2,7 @@ package com.flabedu.small.small.mapper;
 
 import com.flabedu.small.small.model.OrdersItem;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ class OrdersItemMapperTest {
     OrdersItemMapper ordersItemMapper;
 
     @Test
+    @DisplayName("상세 주문 id로 상세 주문 아이템을 찾는다. 상세 주문 id가 동일하다.")
     public void getOrderDetailTest(){
         var id = 1;
         var item = ordersItemMapper.findOrderDetailById(id);
@@ -26,6 +28,7 @@ class OrdersItemMapperTest {
     }
 
     @Test
+    @DisplayName("2개의 상세 주문 아이템을 저장한 후 읽은 데이터가 동일한지 확인한다.")
     public void saveOrderDetailTest(){
         List<OrdersItem> inputList = new ArrayList<>();
         var ordersId = 1;
