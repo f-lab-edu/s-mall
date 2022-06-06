@@ -1,4 +1,4 @@
-package com.flabedu.small.small.exception.handler;
+package com.flabedu.small.small.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
