@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flabedu.small.small.mapper.ItemDetailMapper">
+
+    <select id="list" resultType="com.flabedu.small.small.model.ItemDetail">
+        SELECT * FROM item_detail
+    </select>
+
+    <select id="findItemDetail"
+            parameterType="map"
+            resultType="com.flabedu.small.small.model.ItemDetail">
+        SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
+    </select>
+
+    <select id="findItemDetailById"
+            parameterType="long"
+            resultType="com.flabedu.small.small.model.ItemDetail">
+        SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
+    </select>
+
+    <update id="setStock"
+            parameterType="map"
+            >
+        Update item_detail SET stock = #{stock} where item_detail_id = #{detailId}
+    </update>
+
+
+</mapper>
