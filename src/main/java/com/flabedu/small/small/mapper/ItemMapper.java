@@ -1,4 +1,4 @@
-package com.flabedu.small.small.repository;
+package com.flabedu.small.small.mapper;
 
 import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.model.ItemDetail;
@@ -10,11 +10,9 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface ItemRepository {
+public interface ItemMapper {
     Long addItem(Item item);
     void addItemCategory(Item item);
     void addItemImage(@Param("itemId") Long itemId, @Param("itemImages") List<String> itemImages);
     void addItemDetail(@Param("itemId") Long itemId, @Param("itemDetails") List<ItemDetail> itemDetails);
-    int countAllItems();
-    int countAllItemDetails();
 }

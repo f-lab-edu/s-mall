@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.flabedu.small.small.repository.ItemRepository">
-    <resultMap id="itemMap" type="com.flabedu.small.small.model.Item">
+<mapper namespace="com.flabedu.small.small.mapper.ItemMapper">
+    <resultMap id="itemResult" type="com.flabedu.small.small.model.Item">
     </resultMap>
 
     <insert id="addItem" parameterType="com.flabedu.small.small.model.Item"
@@ -35,13 +35,5 @@
             (#{itemId}, #{itemDetail.stock}, #{itemDetail.size})
         </foreach>
     </insert>
-
-    <select id="countAllItems" resultType="int">
-        select count(*) from item
-    </select>
-
-    <select id="countAllItemDetails" resultType="int">
-        select count(*) from item_detail
-    </select>
 
 </mapper>

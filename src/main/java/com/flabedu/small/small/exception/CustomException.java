@@ -1,10 +1,10 @@
 package com.flabedu.small.small.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomException extends RuntimeException {
-    private CustomErrorCode errorCode;
+    private final ErrorCodes errorCode;
 }

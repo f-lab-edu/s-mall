@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class CustomErrorResponse {
+public class ErrorResponse {
     private int code;
     private String message;
     private List<CustomFieldError> error;

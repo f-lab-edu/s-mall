@@ -3,7 +3,7 @@ package com.flabedu.small.small.service;
 import com.flabedu.small.small.model.enums.GenderEnum;
 import com.flabedu.small.small.model.Item;
 import com.flabedu.small.small.model.enums.SizeEnum;
-import com.flabedu.small.small.repository.ItemRepository;
+import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.verify;
 public class ItemServiceTest {
 
     @Mock
-    private ItemRepository itemRepository;
+    private ItemMapper itemRepository;
 
     @InjectMocks
     private ItemService itemService;

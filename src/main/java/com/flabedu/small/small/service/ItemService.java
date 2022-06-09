@@ -1,7 +1,7 @@
 package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.repository.ItemRepository;
+import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class ItemService {
 
-    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
 
     @Transactional
     public void addItem(ItemRequestDTO newItem) {
@@ -25,22 +25,19 @@ public class ItemService {
                 .subCategory(newItem.getSubCategory())
                 .gender(newItem.getGender())
                 .price(newItem.getPrice())
-                .itemImages(newItem.getItemImages())
-                .itemDetails(
-                        newItem.getItemDetails().stream()
-                                .map(ItemDetailRequestDTO::convertToModel)
-                                .collect(Collectors.toList())
-                )
                 .registUserId("admin")
                 .registDate(LocalDateTime.now())
                 .modifiedUserId("admin")
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
-        itemRepository.addItem(item);
-        itemRepository.addItemCategory(item);
-        itemRepository.addItemImage(item.getItemId(), item.getItemImages());
-        itemRepository.addItemDetail(item.getItemId(), item.getItemDetails());
+        itemMapper.addItem(item);
+        itemMapper.addItemCategory(item);
+        itemMapper.addItemImage(item.getItemId(), newItem.getItemImages());
+        itemMapper.addItemDetail(item.getItemId(),
+                                newItem.getItemDetails().stream()
+                                .map(ItemDetailRequestDTO::convertToModel)
+                                .collect(Collectors.toList()));
     }
 
 }
