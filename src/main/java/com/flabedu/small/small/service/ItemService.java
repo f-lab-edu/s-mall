@@ -21,13 +21,13 @@ public class ItemService {
     public void addItem(ItemRequestDTO newItem) {
         Item item = Item.builder()
                 .name(newItem.getItemName())
-                .engName(newItem.getItemNameEn())
+                .nameEng(newItem.getItemNameEn())
                 .subCategory(newItem.getSubCategory())
-                .gender(newItem.getGender())
+                .gender(newItem.getGender().toString())
                 .price(newItem.getPrice())
-                .registUserId("admin")
-                .registDate(LocalDateTime.now())
-                .modifiedUserId("admin")
+                .registerUserID("admin")
+                .registerDate(LocalDateTime.now())
+                .modifiedUserID("admin")
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
