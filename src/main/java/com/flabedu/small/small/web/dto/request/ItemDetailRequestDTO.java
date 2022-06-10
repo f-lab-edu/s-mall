@@ -14,7 +14,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 public class ItemDetailRequestDTO {
     @NotNull(message = "상품의 사이즈를 선택해주세요.")
-    private SizeEnum size;
+    private String size;
     @NotNull(message = "사이즈 별 재고수량을 입력해주세요.")
     @PositiveOrZero(message = "사이즈 별 재고수량은 0 이상의 정수만 입력 가능합니다.")
     private Long stock;
