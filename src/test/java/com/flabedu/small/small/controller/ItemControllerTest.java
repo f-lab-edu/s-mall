@@ -49,7 +49,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png", "img2.png"))
                 .itemDetails(List.of(itemDetail))
@@ -77,7 +77,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail))
@@ -91,7 +91,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","상품명을 입력해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -102,7 +102,7 @@ public class ItemControllerTest {
                 .itemName("테스트 아이템")
                 .itemNameEn("test item")
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail))
@@ -116,7 +116,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","카테고리를 선택해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -127,7 +127,7 @@ public class ItemControllerTest {
                 .itemName("테스트 아이템")
                 .itemNameEn("test item")
                 .category(1l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail))
@@ -141,7 +141,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","소카테고리를 선택해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -166,7 +166,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","성별을 선택해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -178,7 +178,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(1l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail))
                 .build();
@@ -191,7 +191,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","가격을 입력해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -203,7 +203,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(1l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemDetails(List.of(itemDetail))
                 .build();
@@ -216,7 +216,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","상품의 이미지는 최소 1개 이상 등록해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -228,7 +228,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(1l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .build();
@@ -241,7 +241,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","상품 사이즈 및 재고를 최소 1개 이상 입력해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -253,7 +253,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item마")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail))
@@ -267,7 +267,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","상품 영문명에 한글을 입력할 수 없습니다.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -279,7 +279,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(-30000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail))
@@ -293,7 +293,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","가격은 0 이상의 정수만 입력 가능합니다.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -305,7 +305,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png","img3.png","img4.png","img5.png",
                         "img6.png","img7.png","img8.png","img9.png","img10.png"))
@@ -320,7 +320,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","상품의 이미지는 1~9개 까지 등록 가능합니다.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -335,7 +335,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail1))
@@ -349,7 +349,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","사이즈 별 재고수량을 입력해주세요.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 
@@ -364,7 +364,7 @@ public class ItemControllerTest {
                 .itemNameEn("test item")
                 .category(1l)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetail1))
@@ -378,7 +378,7 @@ public class ItemControllerTest {
                         .content(content)
         ).andExpectAll(
                 status().isInternalServerError(),
-                jsonPath("$..error[?(@.fieldErrorMessages == '%s')]","사이즈 별 재고수량은 0 이상의 정수만 입력 가능합니다.").exists()
+                jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
 }
