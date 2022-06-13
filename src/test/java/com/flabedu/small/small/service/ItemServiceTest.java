@@ -1,10 +1,7 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.exception.CustomException;
-import com.flabedu.small.small.exception.ErrorCodes;
-import com.flabedu.small.small.mapper.*;
+import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.model.ItemDetail;
 import com.flabedu.small.small.model.enums.GenderEnum;
 import com.flabedu.small.small.model.enums.SizeEnum;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
@@ -16,19 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ItemServiceTest {
@@ -45,13 +36,13 @@ public class ItemServiceTest {
     @BeforeEach
     void setUp() {
         itemDetailDTO = ItemDetailRequestDTO.builder()
-                .size(SizeEnum.M.toString()).stock(100l).build();
+                .size(SizeEnum.M).stock(100l).build();
 
         itemDTO = ItemRequestDTO.builder()
                 .itemName("test1")
                 .itemNameEn(null)
                 .subCategory(3l)
-                .gender(GenderEnum.C)
+                .gender(GenderEnum.COMMON)
                 .price(new BigDecimal(20000))
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetailDTO))
@@ -64,7 +55,7 @@ public class ItemServiceTest {
         itemService.addItem(itemDTO);
 
         verify(itemRepository).addItem(any(Item.class));
-        verify(itemRepository).addItemCategory(any(Item.class));
+        verify(itemRepository).addItemCategory(any(), any());
         verify(itemRepository).addItemImage(any(),anyList());
         verify(itemRepository).addItemDetail(any(),anyList());
     }
