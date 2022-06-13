@@ -88,7 +88,7 @@ public class ItemService {
     public void addItem(ItemRequestDTO newItem) {
         Item item = Item.builder()
                 .name(newItem.getItemName())
-                .nameEng(newItem.getItemNameEn())
+                .engName(newItem.getItemNameEn())
                 .gender(newItem.getGender().toString())
                 .price(newItem.getPrice())
                 .registUserid("admin")

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Item {
     private long itemId;
     private String name;
-    private String nameEng;
+    private String engName;
     private String gender;
     private BigDecimal price;
     private String registUserid;
