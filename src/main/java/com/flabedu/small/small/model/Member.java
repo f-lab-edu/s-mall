@@ -4,13 +4,15 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@Builder
 public class Member {
-    private final int id;
-    private final String userId;
-    private final String password;
-    private final long failCount;
-    private final String memberType;
-    private final LocalDateTime registrationDate;
-    private final LocalDateTime modifiedDate;
+    private Long id;
+    private String userId;
+    private String password;
+    private long failCount;
+    private String memberType;
+    private LocalDateTime registrationDate;
+    private LocalDateTime modifiedDate;
 }

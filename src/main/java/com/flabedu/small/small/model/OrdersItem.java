@@ -1,14 +1,20 @@
 package com.flabedu.small.small.model;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
 public class OrdersItem {
-    private final long ordersId;
-    private final long itemId;
-    private final long itemDetailId;
-    private final long ordersItemCount;
-    private final BigDecimal price;
+    private Long ordersId;
+    private Long itemId;
+    private Long itemDetailId;
+    private long ordersItemCount;
+    private BigDecimal price;
 }

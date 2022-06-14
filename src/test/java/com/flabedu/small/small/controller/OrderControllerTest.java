@@ -3,6 +3,7 @@ package com.flabedu.small.small.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flabedu.small.small.exception.CustomException;
 import com.flabedu.small.small.exception.ErrorCodes;
+import com.flabedu.small.small.model.enums.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +61,7 @@ public class OrderControllerTest {
         var orderItem = new OrderRequestDTO.OrderItem();
         orderItem.setItemId(1);
         orderItem.setCount(3);
-        orderItem.setSize("중");
+        orderItem.setSize(SizeEnum.M);
         testDto.getOrders().add(orderItem);
     }
 

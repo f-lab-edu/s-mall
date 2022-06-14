@@ -1,11 +1,11 @@
 package com.flabedu.small.small.exception;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class ErrorResponse {
-    final int code;
-    final String message;
+    private int code;
+    private String message;
 }

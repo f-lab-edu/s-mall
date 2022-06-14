@@ -31,9 +31,22 @@ class OrdersItemMapperTest {
     @DisplayName("2개의 상세 주문 아이템을 저장한 후 읽은 데이터가 동일한지 확인한다.")
     public void saveOrderDetailTest(){
         List<OrdersItem> inputList = new ArrayList<>();
-        var ordersId = 1;
-        var ordersItem1 =new OrdersItem(ordersId, 2, 2, 1, BigDecimal.valueOf(5000));
-        var ordersItem2 =new OrdersItem(ordersId, 2, 3, 2, BigDecimal.valueOf(6000));
+        var ordersId = 1l;
+        var ordersItem1 = OrdersItem.builder()
+                .ordersId(ordersId)
+                .itemId(10l)
+                .itemDetailId(4l)
+                .ordersItemCount(1)
+                .price(BigDecimal.valueOf(5000))
+                .build();
+        var ordersItem2 = OrdersItem.builder()
+                .ordersId(ordersId)
+                .itemId(10l)
+                .itemDetailId(5l)
+                .ordersItemCount(2)
+                .price(BigDecimal.valueOf(6000))
+                .build();
+
         inputList.add(ordersItem1);
         inputList.add(ordersItem2);
 

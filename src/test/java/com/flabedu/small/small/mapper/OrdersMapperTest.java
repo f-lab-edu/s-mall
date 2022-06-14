@@ -26,8 +26,15 @@ class OrdersMapperTest {
     @DisplayName("주문을 삽입하고 데이터 베이스에 삽입된 id가 삽입한 객체에 반영되었는지 확인한다.")
     public void insertOrders_Get_OrderID_Test(){
         int inputOrderId = -1;
-        var curTime =LocalDateTime.now();
-        var orders = new Orders(inputOrderId, 2, BigDecimal.valueOf(300),  curTime, OrderStatus.SUCCEED, curTime);
+        var curTime = LocalDateTime.now();
+        var orders = Orders.builder()
+                .orderId(inputOrderId)
+                .memberId(2)
+                .totalPrice(BigDecimal.valueOf(300))
+                .ordersDate(curTime)
+                .status(OrderStatus.SUCCEED)
+                .modifiedDate(curTime)
+                .build();
 
         ordersMapper.insertOrders(orders);
 
@@ -38,8 +45,14 @@ class OrdersMapperTest {
     @DisplayName("주문을 삽입하고 삽입되었는지 확인한다.")
     public void insertOrders_Insert_Row_Test(){
         var curTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        System.out.println(curTime);
-        var orders = new Orders(0, 2, BigDecimal.valueOf(300),  curTime, OrderStatus.SUCCEED,curTime);
+        var orders = Orders.builder()
+                .orderId(0l)
+                .memberId(2)
+                .totalPrice(BigDecimal.valueOf(300))
+                .ordersDate(curTime)
+                .status(OrderStatus.SUCCEED)
+                .modifiedDate(curTime)
+                .build();
 
         ordersMapper.insertOrders(orders);
         var readOrders = ordersMapper.findOrdersById(orders.getOrderId());

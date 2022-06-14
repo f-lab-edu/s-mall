@@ -1,19 +1,23 @@
 package com.flabedu.small.small.model;
 
 import com.flabedu.small.small.model.enums.OrderStatus;
-import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@Builder
 public class Orders {
-    private final long orderId;
-    private final long memberId;
-    private final BigDecimal totalPrice;
-    private final LocalDateTime ordersDate;
-    private final OrderStatus status;
-    private final LocalDateTime modifiedDate;
-
-
+    private long orderId;
+    private long memberId;
+    private BigDecimal totalPrice;
+    private LocalDateTime ordersDate;
+    private OrderStatus status;
+    private LocalDateTime modifiedDate;
 }

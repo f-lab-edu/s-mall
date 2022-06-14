@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flabedu.small.small.mapper.ItemMapper">
+
+    <insert id="addItem" parameterType="com.flabedu.small.small.model.Item"
+            useGeneratedKeys="true" keyProperty="itemId">
+        <selectKey order="AFTER" resultType="long" keyProperty="itemId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into item (name, engname, gender, price, regist_userid, regist_date, modified_userid, modified_date)
+        values (#{name}, #{engName}, #{gender}, #{price}, #{registUserid}, #{registDate}, #{modifiedUserid}, #{modifiedDate})
+    </insert>
+
+    <insert id="addItemCategory" parameterType="map">
+        insert into item_category (item_id, category_id, regist_userid, regist_date, modified_userid, modified_date)
+        values (#{item.itemId},#{itemCategory}, #{item.registUserid}, #{item.registDate}, #{item.modifiedUserid}, #{item.modifiedDate})
+    </insert>
+
+    <insert id="addItemImage" parameterType="map">
+        insert into item_image (item_id,seq,filename)
+        values
+        <foreach collection="itemImages" separator="," item="image" index="i">
+            (#{itemId}, #{i}+1, #{image})
+        </foreach>
+    </insert>
+
+    <insert id="addItemDetail" parameterType="map">
+        insert into item_detail (item_id,stock,size)
+        values
+        <foreach collection="itemDetails" separator="," item="itemDetail">
+            (#{itemId}, #{itemDetail.stock}, #{itemDetail.size})
+        </foreach>
+    </insert>
+
+    <select id="findItemAll" resultType="com.flabedu.small.small.model.Item">
+        select * from item;
+    </select>
+
+    <select id="findItemById"
+            parameterType="java.lang.Long"
+            resultType="com.flabedu.small.small.model.Item">
+        SELECT * FROM item WHERE item_id = #{id}
+    </select>
+
+    <select id="findItemDetailAll" resultType="com.flabedu.small.small.model.ItemDetail">
+        SELECT * FROM item_detail
+    </select>
+
+    <select id="findItemDetail"
+            parameterType="map"
+            resultType="com.flabedu.small.small.model.ItemDetail">
+        SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
+    </select>
+
+    <select id="findItemDetailById"
+            parameterType="long"
+            resultType="com.flabedu.small.small.model.ItemDetail">
+        SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
+    </select>
+
+    <update id="setStock"
+            parameterType="map">
+        Update item_detail SET stock = #{stock} where item_detail_id = #{detailId}
+    </update>
+
+</mapper>

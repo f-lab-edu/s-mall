@@ -1,11 +1,18 @@
 package com.flabedu.small.small.model;
 
-import lombok.*;
+import com.flabedu.small.small.model.enums.SizeEnum;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@Builder
 public class ItemDetail {
-    private final long itemDetailId;
-    private final long itemId;
-    private final long stock;
-    private final String size;
+    private Long itemDetailId;
+    private Long itemId;
+    private long stock;
+    private SizeEnum size;
 }
