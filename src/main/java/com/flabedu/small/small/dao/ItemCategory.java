@@ -1,16 +1,14 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
-import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
-public class Category {
+public class ItemCategory {
+    private Long itemCategoryId;
+    private Long itemId;
     private Long categoryId;
-    private Long parent;
-    private String name;
     private String registUserId;
     private LocalDateTime registDate;
     private String modifiedUserId;

@@ -1,8 +1,8 @@
 package com.flabedu.small.small.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flabedu.small.small.model.enums.GenderEnum;
-import com.flabedu.small.small.model.enums.SizeEnum;
+import com.flabedu.small.small.dao.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;

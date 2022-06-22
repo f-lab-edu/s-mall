@@ -1,7 +1,7 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.Orders;
-import com.flabedu.small.small.model.enums.OrderStatus;
+import com.flabedu.small.small.dao.OrdersDAO;
+import com.flabedu.small.small.dao.enums.OrderStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -27,7 +27,7 @@ class OrdersMapperTest {
     public void insertOrders_Get_OrderID_Test(){
         int inputOrderId = -1;
         var curTime = LocalDateTime.now();
-        var orders = Orders.builder()
+        var orders = OrdersDAO.builder()
                 .orderId(inputOrderId)
                 .memberId(2)
                 .totalPrice(BigDecimal.valueOf(300))
@@ -45,7 +45,7 @@ class OrdersMapperTest {
     @DisplayName("주문을 삽입하고 삽입되었는지 확인한다.")
     public void insertOrders_Insert_Row_Test(){
         var curTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        var orders = Orders.builder()
+        var orders = OrdersDAO.builder()
                 .orderId(0l)
                 .memberId(2)
                 .totalPrice(BigDecimal.valueOf(300))

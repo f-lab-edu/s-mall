@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -16,6 +17,8 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public List<CategoryResponseDTO> findCategory(){
-        return categoryMapper.findCategory();
+        return categoryMapper.findCategory()
+                .stream().map(CategoryResponseDTO::new)
+                .collect(Collectors.toList());
     }
 }

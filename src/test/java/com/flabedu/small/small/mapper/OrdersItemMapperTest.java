@@ -1,6 +1,6 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.OrdersItem;
+import com.flabedu.small.small.dao.OrdersItemDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,16 +30,16 @@ class OrdersItemMapperTest {
     @Test
     @DisplayName("2개의 상세 주문 아이템을 저장한 후 읽은 데이터가 동일한지 확인한다.")
     public void saveOrderDetailTest(){
-        List<OrdersItem> inputList = new ArrayList<>();
+        List<OrdersItemDAO> inputList = new ArrayList<>();
         var ordersId = 1l;
-        var ordersItem1 = OrdersItem.builder()
+        var ordersItem1 = OrdersItemDAO.builder()
                 .ordersId(ordersId)
                 .itemId(10l)
                 .itemDetailId(4l)
                 .ordersItemCount(1)
                 .price(BigDecimal.valueOf(5000))
                 .build();
-        var ordersItem2 = OrdersItem.builder()
+        var ordersItem2 = OrdersItemDAO.builder()
                 .ordersId(ordersId)
                 .itemId(10l)
                 .itemDetailId(5l)

@@ -1,4 +1,4 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @Builder
 @EqualsAndHashCode
-public class OrdersItem {
+public class OrdersItemDAO {
     private Long ordersId;
     private Long itemId;
     private Long itemDetailId;

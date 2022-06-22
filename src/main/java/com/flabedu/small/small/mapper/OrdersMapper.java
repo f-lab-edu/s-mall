@@ -1,13 +1,13 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.Orders;
+import com.flabedu.small.small.dao.OrdersDAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
 public interface OrdersMapper {
-    void insertOrders(Orders orders);
+    void insertOrders(OrdersDAO orders);
 
-    Orders findOrdersById(long orderId);
+    OrdersDAO findOrdersById(long orderId);
 }

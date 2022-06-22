@@ -1,5 +1,6 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
+import com.flabedu.small.small.dao.enums.GenderEnum;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,11 +13,11 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @Builder
-public class Item {
+public class ItemDAO {
     private long itemId;
     private String name;
     private String engName;
-    private String gender;
+    private GenderEnum gender;
     private BigDecimal price;
     private String registUserid;
     private LocalDateTime registDate;

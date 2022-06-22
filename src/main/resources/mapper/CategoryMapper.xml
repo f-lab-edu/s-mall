@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flabedu.small.small.mapper.CategoryMapper">
 
-    <select id="findCategory" resultType="com.flabedu.small.small.web.dto.response.CategoryResponseDTO">
+    <select id="findCategory" resultType="com.flabedu.small.small.dao.CategoryItemCountDAO">
         select c.CATEGORY_ID ,c.PARENT as parentCategoryId ,c.NAME as categoryName
             ,SUM(case when ic.ITEM_CATEGORY_ID is not null then 1 else 0 end) as categoryItemCount
         from category c left outer join item_category ic
