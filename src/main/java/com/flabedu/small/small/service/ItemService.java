@@ -89,7 +89,7 @@ public class ItemService {
         Item item = Item.builder()
                 .name(newItem.getItemName())
                 .engName(newItem.getItemNameEn())
-                .gender(newItem.getGender().toString())
+                .gender(newItem.getGender())
                 .price(newItem.getPrice())
                 .registUserid("admin")
                 .registDate(LocalDateTime.now())
