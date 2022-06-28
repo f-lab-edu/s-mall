@@ -6,8 +6,8 @@ import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
-import com.flabedu.small.small.model.*;
-import com.flabedu.small.small.model.enums.OrderStatus;
+import com.flabedu.small.small.dao.*;
+import com.flabedu.small.small.dao.enums.OrderStatus;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
@@ -32,17 +32,17 @@ public class ItemService {
 
     @Transactional(rollbackFor = Exception.class)
     public void purchaseItem(OrderRequestDTO itemInfo, String userID){
-        Member user = memberMapper.findMemberById(userID);
+        MemberDao user = memberMapper.findMemberById(userID);
         if(user == null) throw new CustomException(ErrorCodes.CANNOT_FIND_USER);
 
-        List<OrdersItem> ordersItems = createOrderItems(itemInfo.getOrders());
+        List<OrdersItemDao> ordersItems = createOrderItems(itemInfo.getOrders());
         saveOrders(user, ordersItems);
     }
 
-    private void saveOrders(Member user, List<OrdersItem> ordersItems) {
-        BigDecimal totalPrice = ordersItems.stream().map(OrdersItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    private void saveOrders(MemberDao user, List<OrdersItemDao> ordersItems) {
+        BigDecimal totalPrice = ordersItems.stream().map(OrdersItemDao::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         LocalDateTime createDate = LocalDateTime.now();
-        Orders orders = Orders.builder()
+        OrdersDao orders = OrdersDao.builder()
                 .orderId(0)
                 .memberId(user.getId())
                 .totalPrice(totalPrice)
@@ -55,13 +55,13 @@ public class ItemService {
         ordersItemMapper.saveOrderDetails(orders.getOrderId(), ordersItems);
     }
 
-    private List<OrdersItem> createOrderItems(List<OrderRequestDTO.OrderItem> itemInfo)
+    private List<OrdersItemDao> createOrderItems(List<OrderRequestDTO.OrderItem> itemInfo)
     {
-        List<OrdersItem> ordersItems = new ArrayList<>();
+        List<OrdersItemDao> ordersItems = new ArrayList<>();
 
         itemInfo.forEach(ordersItem-> {
-            Item item = itemMapper.findItemById(ordersItem.getItemId());
-            ItemDetail detail = itemMapper.findItemDetail(ordersItem.getItemId(), ordersItem.getSize());
+            ItemDao item = itemMapper.findItemById(ordersItem.getItemId());
+            ItemDetailDao detail = itemMapper.findItemDetail(ordersItem.getItemId(), ordersItem.getSize());
 
             if(item == null) throw new CustomException(ErrorCodes.CANNOT_FIND_ITEM);
             if(detail == null) throw new CustomException(ErrorCodes.CANNOT_FIND_ITEM_DETAIL);
@@ -72,7 +72,7 @@ public class ItemService {
                     detail.getStock() - ordersItem.getCount()
             );
 
-            ordersItems.add(OrdersItem.builder()
+            ordersItems.add(OrdersItemDao.builder()
                             .ordersId(0l)
                             .itemId(item.getItemId())
                             .itemDetailId(detail.getItemDetailId())
@@ -86,7 +86,7 @@ public class ItemService {
 
     @Transactional
     public void addItem(ItemRequestDTO newItem) {
-        Item item = Item.builder()
+        ItemDao item = ItemDao.builder()
                 .name(newItem.getItemName())
                 .engName(newItem.getItemNameEn())
                 .gender(newItem.getGender())

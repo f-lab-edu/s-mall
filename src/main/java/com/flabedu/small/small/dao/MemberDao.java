@@ -1,4 +1,4 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class Member {
+public class MemberDao {
     private Long id;
     private String userId;
     private String password;

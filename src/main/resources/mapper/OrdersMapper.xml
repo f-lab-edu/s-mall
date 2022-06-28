@@ -6,7 +6,7 @@
 <mapper namespace="com.flabedu.small.small.mapper.OrdersMapper">
 
     <insert id="insertOrders"
-            parameterType="com.flabedu.small.small.model.Orders"
+            parameterType="com.flabedu.small.small.dao.OrdersDao"
             useGeneratedKeys="true"
             keyProperty="orderId">
              INSERT INTO orders
@@ -16,7 +16,7 @@
 
     <select id="findOrdersById"
             parameterType="java.lang.Long"
-            resultType="com.flabedu.small.small.model.Orders">
+            resultType="com.flabedu.small.small.dao.OrdersDao">
         SELECT * FROM orders WHERE orders_id = #{orderId}
     </select>
 

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flabedu.small.small.mapper.ItemMapper">
 
-    <insert id="addItem" parameterType="com.flabedu.small.small.model.Item"
+    <insert id="addItem" parameterType="com.flabedu.small.small.dao.ItemDao"
             useGeneratedKeys="true" keyProperty="itemId">
         <selectKey order="AFTER" resultType="long" keyProperty="itemId">
             SELECT LAST_INSERT_ID()
@@ -34,29 +34,29 @@
         </foreach>
     </insert>
 
-    <select id="findItemAll" resultType="com.flabedu.small.small.model.Item">
+    <select id="findItemAll" resultType="com.flabedu.small.small.dao.ItemDao">
         select * from item;
     </select>
 
     <select id="findItemById"
             parameterType="java.lang.Long"
-            resultType="com.flabedu.small.small.model.Item">
+            resultType="com.flabedu.small.small.dao.ItemDao">
         SELECT * FROM item WHERE item_id = #{id}
     </select>
 
-    <select id="findItemDetailAll" resultType="com.flabedu.small.small.model.ItemDetail">
+    <select id="findItemDetailAll" resultType="com.flabedu.small.small.dao.ItemDetailDao">
         SELECT * FROM item_detail
     </select>
 
     <select id="findItemDetail"
             parameterType="map"
-            resultType="com.flabedu.small.small.model.ItemDetail">
+            resultType="com.flabedu.small.small.dao.ItemDetailDao">
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
     <select id="findItemDetailById"
             parameterType="long"
-            resultType="com.flabedu.small.small.model.ItemDetail">
+            resultType="com.flabedu.small.small.dao.ItemDetailDao">
         SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
     </select>
 

@@ -1,6 +1,6 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
-import com.flabedu.small.small.model.enums.OrderStatus;
+import com.flabedu.small.small.dao.enums.OrderStatus;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @Builder
-public class Orders {
+public class OrdersDao {
     private long orderId;
     private long memberId;
     private BigDecimal totalPrice;

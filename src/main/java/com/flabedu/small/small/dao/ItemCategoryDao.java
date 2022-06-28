@@ -1,11 +1,11 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class ItemCategory {
+public class ItemCategoryDao {
     private Long itemCategoryId;
     private Long itemId;
     private Long categoryId;
