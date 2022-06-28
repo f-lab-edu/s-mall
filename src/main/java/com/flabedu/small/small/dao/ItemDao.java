@@ -1,6 +1,6 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
-import com.flabedu.small.small.model.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.GenderEnum;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @Builder
-public class Item {
+public class ItemDao {
     private long itemId;
     private String name;
     private String engName;

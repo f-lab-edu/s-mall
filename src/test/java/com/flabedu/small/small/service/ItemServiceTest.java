@@ -6,11 +6,11 @@ import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
-import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.model.ItemDetail;
-import com.flabedu.small.small.model.Member;
-import com.flabedu.small.small.model.enums.GenderEnum;
-import com.flabedu.small.small.model.enums.SizeEnum;
+import com.flabedu.small.small.dao.ItemDao;
+import com.flabedu.small.small.dao.ItemDetailDao;
+import com.flabedu.small.small.dao.MemberDao;
+import com.flabedu.small.small.dao.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
@@ -49,7 +49,7 @@ public class ItemServiceTest  {
     @MockBean
     OrdersMapper ordersMapper;
 
-    Member dummyMember = Member.builder()
+    MemberDao dummyMember = MemberDao.builder()
             .id(1l)
             .userId("a")
             .password("b")
@@ -59,7 +59,7 @@ public class ItemServiceTest  {
             .modifiedDate(LocalDateTime.now())
             .build();
     OrderRequestDTO dummyDto = new OrderRequestDTO();
-    Item dummyItem = Item.builder()
+    ItemDao dummyItem = ItemDao.builder()
             .itemId(1l)
             .name("a")
             .engName("b")
@@ -70,7 +70,7 @@ public class ItemServiceTest  {
             .modifiedUserid("d")
             .modifiedDate(LocalDateTime.now())
             .build();
-    ItemDetail dummyItemDetail = ItemDetail.builder()
+    ItemDetailDao dummyItemDetail = ItemDetailDao.builder()
             .itemDetailId(1l)
             .itemId(2l)
             .stock(5)
@@ -147,7 +147,7 @@ public class ItemServiceTest  {
     @Test
     @DisplayName("상품의 재고가 부족할 경우 NoStockException 이 발생한다.")
     public void noItemStock(){
-        ItemDetail dummyItemDetail = ItemDetail.builder()
+        ItemDetailDao dummyItemDetail = ItemDetailDao.builder()
                 .itemDetailId(1l)
                 .itemId(2l)
                 .stock(2)
@@ -168,7 +168,7 @@ public class ItemServiceTest  {
     public void addItemSuccess(){
         itemService.addItem(itemDTO);
 
-        verify(itemMapper).addItem(any(Item.class));
+        verify(itemMapper).addItem(any(ItemDao.class));
         verify(itemMapper).addItemCategory(any(), any());
         verify(itemMapper).addItemImage(any(),anyList());
         verify(itemMapper).addItemDetail(any(),anyList());
