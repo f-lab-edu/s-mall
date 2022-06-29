@@ -5,11 +5,13 @@ import com.flabedu.small.small.model.enums.GenderEnum;
 import com.flabedu.small.small.model.enums.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
-import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
+import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
+import com.flabedu.small.small.web.dto.request.SelectedItemRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,9 +22,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ItemController.class)
 public class ItemControllerTest {
@@ -381,4 +385,24 @@ public class ItemControllerTest {
                 jsonPath("$[?(@.code == 702)]").exists()
         ).andDo(print());
     }
+
+    @Test
+    @DisplayName("올바른 아이템 ID로 호출 시 200 응답 코드와 ItemService의 getItem을 호출한다.")
+    public void getItemSuccess() throws Exception {
+        SelectedItemRequestDTO requestDTO = SelectedItemRequestDTO.builder().
+                id(17L).
+                build();
+
+        String content = objectMapper.writeValueAsString(requestDTO);
+
+        this.mockMvc.perform(
+                get("/items/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(print());
+        Mockito.verify(itemService).getItem(Mockito.any());
+    }
+
 }

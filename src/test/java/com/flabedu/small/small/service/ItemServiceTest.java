@@ -1,11 +1,17 @@
 package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.mapper.ItemMapper;
+import com.flabedu.small.small.model.CategoryInfo;
 import com.flabedu.small.small.model.Item;
+import com.flabedu.small.small.model.ItemDetail;
+import com.flabedu.small.small.model.StockAndSize;
 import com.flabedu.small.small.model.enums.GenderEnum;
 import com.flabedu.small.small.model.enums.SizeEnum;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
+import com.flabedu.small.small.web.dto.request.SelectedItemRequestDTO;
+import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,22 +22,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ItemServiceTest {
 
     @Mock
-    private ItemMapper itemRepository;
+    private ItemMapper itemMapper;
 
     @InjectMocks
     private ItemService itemService;
 
     private ItemDetailRequestDTO itemDetailDTO;
     private ItemRequestDTO itemDTO;
+
+    private SelectedItemRequestDTO selectedItemRequestDTO;
 
     @BeforeEach
     void setUp() {
@@ -47,6 +56,8 @@ public class ItemServiceTest {
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetailDTO))
                 .build();
+
+        selectedItemRequestDTO = SelectedItemRequestDTO.builder().id(3L).build();
     }
 
     @Test
@@ -54,10 +65,51 @@ public class ItemServiceTest {
     public void addItemSuccess(){
         itemService.addItem(itemDTO);
 
-        verify(itemRepository).addItem(any(Item.class));
-        verify(itemRepository).addItemCategory(any(), any());
-        verify(itemRepository).addItemImage(any(),anyList());
-        verify(itemRepository).addItemDetail(any(),anyList());
+        verify(itemMapper).addItem(any(Item.class));
+        verify(itemMapper).addItemCategory(any(), any());
+        verify(itemMapper).addItemImage(any(),anyList());
+        verify(itemMapper).addItemDetail(any(),anyList());
+    }
+
+    @Test
+    @DisplayName("getItem 호출시 조회 관련 쿼리가 예상값과 동일한 SelectedItemResponseDTO를 반환한다.")
+    public void getItemSuccess(){
+        Item dummyItem = Item.builder().
+                itemId(10).
+                name("Test").
+                engName("EngName").
+                gender("C").
+                price(BigDecimal.valueOf(100)).
+                build();
+        List<ItemDetail> dummyItemDetail = List.of(
+                ItemDetail.builder().
+                        itemId(10L).
+                        itemDetailId(2L).
+                        build());
+        List<StockAndSize> dummyStockAndSize = dummyItemDetail.stream().map(v->
+                StockAndSize.builder()
+                        .stock(v.getStock())
+                        .size(v.getSize())
+                        .build()
+                ).collect(Collectors.toList());
+        List<String> itemImages = List.of("testImg1");
+        List<CategoryInfo> categoryInfos = List.of(new CategoryInfo("상의", "티셔츠"));
+
+        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
+        when(itemMapper.findItemDetailByItemId(anyLong())).thenReturn(dummyItemDetail);
+        when(itemMapper.findItemImagesNameByItemId(anyLong())).thenReturn(itemImages);
+        when(itemMapper.getCategoryInfo(anyLong())).thenReturn(categoryInfos);
+
+        SelectedItemResponseDTO result = itemService.getItem(selectedItemRequestDTO);
+
+        Assertions.assertEquals(result.getItemNameKr(), dummyItem.getName());
+        Assertions.assertEquals(result.getItemNameEn(), dummyItem.getEngName());
+        Assertions.assertEquals(result.getGender(), dummyItem.getGender());
+        Assertions.assertEquals(result.getPrice(), dummyItem.getPrice());
+        Assertions.assertIterableEquals(result.getCategory(), categoryInfos);
+        Assertions.assertIterableEquals(result.getItemImages(), itemImages);
+        Assertions.assertIterableEquals(result.getStockAndSizes(), dummyStockAndSize);
+
     }
 
 }

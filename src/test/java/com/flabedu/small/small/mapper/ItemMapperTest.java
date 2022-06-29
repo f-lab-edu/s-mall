@@ -132,13 +132,13 @@ class ItemMapperTest {
     }
 
     @Test
-    @DisplayName("아이템을 반환한다. 에러 없이 성공한다.")
+    @DisplayName("카테고리가 ID가 3인 반팔티 카테고리 아이템을 DB에 넣은 후 해당 아이템 ID로 읽어온 데이터의 카테고리가 반팔 티셔츠이다.")
     public void getCategoryInfoTest(){
         itemMapper.addItem(dummyItem);
-        itemMapper.addItemCategory(dummyItem, 2l);
+        itemMapper.addItemCategory(dummyItem, 3L);
 
         var categoryInfo = itemMapper.getCategoryInfo(dummyItem.getItemId());
 
-        Assertions.assertEquals(categoryInfo.get(0), categoryInfo.get(0));
+        Assertions.assertEquals("반팔 티셔츠", categoryInfo.get(0).getSubCategory());
     }
 }
