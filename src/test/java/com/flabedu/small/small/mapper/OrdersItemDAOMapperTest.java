@@ -14,7 +14,7 @@ import java.util.List;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class OrdersItemMapperTest {
+class OrdersItemDAOMapperTest {
 
     @Autowired
     OrdersItemMapper ordersItemMapper;

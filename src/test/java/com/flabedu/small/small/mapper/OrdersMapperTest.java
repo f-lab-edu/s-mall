@@ -27,7 +27,7 @@ class OrdersMapperTest {
     public void insertOrders_Get_OrderID_Test(){
         int inputOrderId = -1;
         var curTime = LocalDateTime.now();
-        var orders = Orders.builder()
+        var ordersDAO = Orders.builder()
                 .orderId(inputOrderId)
                 .memberId(2)
                 .totalPrice(BigDecimal.valueOf(300))
@@ -36,16 +36,16 @@ class OrdersMapperTest {
                 .modifiedDate(curTime)
                 .build();
 
-        ordersMapper.insertOrders(orders);
+        ordersMapper.insertOrders(ordersDAO);
 
-        assertNotEquals(inputOrderId, orders.getOrderId());
+        assertNotEquals(inputOrderId, ordersDAO.getOrderId());
     }
 
     @Test
     @DisplayName("주문을 삽입하고 삽입되었는지 확인한다.")
     public void insertOrders_Insert_Row_Test(){
         var curTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        var orders = Orders.builder()
+        var ordersDAO = Orders.builder()
                 .orderId(0l)
                 .memberId(2)
                 .totalPrice(BigDecimal.valueOf(300))
@@ -54,9 +54,9 @@ class OrdersMapperTest {
                 .modifiedDate(curTime)
                 .build();
 
-        ordersMapper.insertOrders(orders);
-        var readOrders = ordersMapper.findOrdersById(orders.getOrderId());
+        ordersMapper.insertOrders(ordersDAO);
+        var readOrders = ordersMapper.findOrdersById(ordersDAO.getOrderId());
 
-        assertEquals(orders, readOrders);
+        assertEquals(ordersDAO, readOrders);
     }
 }

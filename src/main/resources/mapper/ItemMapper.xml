@@ -54,10 +54,35 @@
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
-    <select id="findItemDetailById"
-            parameterType="long"
+    <select id="findItemDetailByItemId"
+            parameterType="java.lang.Long"
             resultType="com.flabedu.small.small.model.ItemDetail">
-        SELECT * FROM item_detail WHERE ITEM_DETAIL_ID = #{detailId}
+        SELECT * FROM item_detail WHERE ITEM_ID = #{itemId}
+    </select>
+
+    <select id="findItemImagesByItemId"
+            parameterType="long"
+            resultType="com.flabedu.small.small.model.ItemImage">
+        SELECT * FROM item_image WHERE ITEM_ID = #{itemId} ORDER BY SEQ
+    </select>
+
+    <select id="findItemImagesNameByItemId"
+            parameterType="long"
+            resultType="java.lang.String">
+        SELECT filename FROM item_image WHERE ITEM_ID = #{itemId} ORDER BY SEQ
+    </select>
+
+    <select id="getCategoryInfo"
+            parameterType="long"
+            resultType="com.flabedu.small.small.model.CategoryInfo">
+        SELECT P.name "category", C.NAME "subCategory" FROM
+            (SELECT * FROM category
+                WHERE category_id in
+                (SELECT category_id from item_category WHERE item_id = #{itemId})
+            ) C
+        INNER JOIN category P
+        ON C.parent = P.category_id;
+
     </select>
 
     <update id="setStock"
