@@ -7,7 +7,6 @@ import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
-import com.flabedu.small.small.web.dto.request.SelectedItemRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -389,20 +388,39 @@ public class ItemControllerTest {
     @Test
     @DisplayName("올바른 아이템 ID로 호출 시 200 응답 코드와 ItemService의 getItem을 호출한다.")
     public void getItemSuccess() throws Exception {
-        SelectedItemRequestDTO requestDTO = SelectedItemRequestDTO.builder().
-                id(17L).
-                build();
-
-        String content = objectMapper.writeValueAsString(requestDTO);
+        int id = 17;
 
         this.mockMvc.perform(
-                get("/items/product")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(content)
+                get("/items/product?id="+id)
         ).andExpectAll(
                 status().isOk()
         ).andDo(print());
         Mockito.verify(itemService).getItem(Mockito.any());
     }
 
+    @Test
+    @DisplayName("음수 ID를 입력하면 상태 코드 500에 Body의 code 값이 702로 응답한다.")
+    public void getItemFailNegativeID() throws Exception {
+        int id = -17;
+
+        this.mockMvc.perform(
+                get("/items/product?id=" + id)
+        ).andExpectAll(
+                status().isInternalServerError(),
+                jsonPath("$[?(@.code == 702)]").exists()
+        ).andDo(print());
+    }
+
+    @Test
+    @DisplayName("음수 ID를 0으로 입력하면 상태 코드 500에 Body의 code 값이 702로 응답한다.")
+    public void getItemFailZeroID() throws Exception {
+        int id = 0;
+
+        this.mockMvc.perform(
+                get("/items/product?id=" + id)
+        ).andExpectAll(
+                status().isInternalServerError(),
+                jsonPath("$[?(@.code == 702)]").exists()
+        ).andDo(print());
+    }
 }

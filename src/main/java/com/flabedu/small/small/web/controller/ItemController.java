@@ -24,7 +24,7 @@ public class ItemController {
     }
 
     @GetMapping("/product")
-    public ResponseEntity<Object> getItems(@ModelAttribute @Valid SelectedItemRequestDTO newItem) {
+    public ResponseEntity<Object> getItems(@ModelAttribute("id") @Valid SelectedItemRequestDTO newItem) {
         return ResponseEntity.status(HttpStatus.OK).body(itemService.getItem(newItem));
     }
 }
