@@ -21,4 +21,5 @@ public class CategoryService {
                 .map(c -> new CategoryResponseDTO(c.getCategoryId(), c.getParentId(), c.getName(), c.getItemCount()))
                 .collect(Collectors.toList());
     }
+
 }

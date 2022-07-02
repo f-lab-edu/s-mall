@@ -2,18 +2,25 @@ package com.flabedu.small.small.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flabedu.small.small.service.CategoryService;
+import com.flabedu.small.small.web.controller.CategoryController;
+import com.flabedu.small.small.web.dto.response.CategoryResponseDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -26,16 +33,41 @@ public class CategoryControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    CategoryController categoryController;
+
     @MockBean
     CategoryService categoryService;
 
+    CategoryResponseDTO testDto0;
+    CategoryResponseDTO testDto1;
+
+    @BeforeEach
+    void setup() {
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(categoryController)
+                .build();
+        testDto0 = new CategoryResponseDTO(1l,null,"상의",14);
+        testDto1 = new CategoryResponseDTO(2l,null,"하의",2);
+    }
+
     @Test
-    @DisplayName("카테고리 조회 성공")
+    @DisplayName("카테고리 별 상품 개수 조회 시 예상한 값이 반환된다")
     public void findCategorySuccess() throws Exception {
-        ResultActions actions = mockMvc.perform(
-                get("/category").contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(
-                status().isOk()
+        when(categoryService.findCategory()).thenReturn(List.of(testDto0, testDto1));
+
+        ResultActions actions = mockMvc.perform(get("/category"))
+                .andExpectAll(
+                    status().isOk(),
+                jsonPath("$[0].categoryId").value(testDto0.getCategoryId()),
+                jsonPath("$[0].parentCategoryId").value(testDto0.getParentCategoryId()),
+                jsonPath("$[0].categoryName").value(testDto0.getCategoryName()),
+                jsonPath("$[0].categoryItemCount").value(testDto0.getCategoryItemCount()),
+                jsonPath("$[1].categoryId").value(testDto1.getCategoryId()),
+                jsonPath("$[1].parentCategoryId").value(testDto1.getParentCategoryId()),
+                jsonPath("$[1].categoryName").value(testDto1.getCategoryName()),
+                jsonPath("$[1].categoryItemCount").value(testDto1.getCategoryItemCount())
         ).andDo(print());
     }
+
 }

@@ -18,4 +18,5 @@ public class CategoryController {
     public ResponseEntity<Object> findCategory() {
         return ResponseEntity.ok().body(categoryService.findCategory());
     }
+
 }

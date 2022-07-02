@@ -5,11 +5,32 @@
 <mapper namespace="com.flabedu.small.small.mapper.CategoryMapper">
 
     <select id="findCategory" resultType="com.flabedu.small.small.dao.CategoryItemCountDao">
-        select c.CATEGORY_ID ,c.PARENT as parentId ,c.NAME
-        ,SUM(case when ic.ITEM_CATEGORY_ID is not null then 1 else 0 end) as itemCount
-        from category c left outer join item_category ic
-        on c.CATEGORY_ID = ic.CATEGORY_ID
-        group by c.CATEGORY_ID ,c.PARENT ,c.NAME
+        SELECT a.category_id,a.parent as parentId,a.name
+            ,(case when a.parent is null then ifnull(parentcount,0) else ifnull(itemcount,0) end) itemCount
+        from
+        (
+            SELECT c.CATEGORY_ID ,c.PARENT ,c.NAME,itemcount
+            from category c left outer join
+            (
+                select CATEGORY_ID , count(*) itemcount
+                from item_category
+                group by CATEGORY_ID
+            ) ic
+            on c.CATEGORY_ID = ic.CATEGORY_ID
+        ) a left outer join
+        (
+            SELECT c.PARENT ,sum(cnt) parentcount
+            from category c left outer join
+            (
+                select CATEGORY_ID , count(*) cnt
+                from item_category
+                group by CATEGORY_ID
+            ) ic
+            on c.CATEGORY_ID = ic.CATEGORY_ID
+            where parent is not null
+            group by parent
+        ) b
+        on a.category_id = b.parent
         ;
     </select>
 

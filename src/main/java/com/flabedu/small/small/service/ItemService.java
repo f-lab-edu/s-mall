@@ -1,14 +1,13 @@
 package com.flabedu.small.small.service;
 
+import com.flabedu.small.small.dao.*;
+import com.flabedu.small.small.dao.enums.OrderStatus;
 import com.flabedu.small.small.exception.CustomException;
 import com.flabedu.small.small.exception.ErrorCodes;
 import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
-import com.flabedu.small.small.dao.*;
-import com.flabedu.small.small.dao.enums.OrderStatus;
-import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -102,7 +101,7 @@ public class ItemService {
         itemMapper.addItemImage(item.getItemId(), newItem.getItemImages());
         itemMapper.addItemDetail(item.getItemId(),
                 newItem.getItemDetails().stream()
-                        .map(ItemDetailRequestDTO::convertToModel)
+                        .map(d -> ItemDetailDao.builder().size(d.getSize()).stock(d.getStock()).build())
                         .collect(Collectors.toList()));
     }
 
