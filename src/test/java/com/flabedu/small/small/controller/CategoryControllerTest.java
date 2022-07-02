@@ -2,7 +2,6 @@ package com.flabedu.small.small.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flabedu.small.small.service.CategoryService;
-import com.flabedu.small.small.web.controller.CategoryController;
 import com.flabedu.small.small.web.dto.response.CategoryResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
@@ -33,9 +31,6 @@ public class CategoryControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired
-    CategoryController categoryController;
-
     @MockBean
     CategoryService categoryService;
 
@@ -44,9 +39,6 @@ public class CategoryControllerTest {
 
     @BeforeEach
     void setup() {
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(categoryController)
-                .build();
         testDto0 = new CategoryResponseDTO(1l,null,"상의",14);
         testDto1 = new CategoryResponseDTO(2l,null,"하의",2);
     }
