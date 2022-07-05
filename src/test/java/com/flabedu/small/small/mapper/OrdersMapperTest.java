@@ -1,7 +1,7 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.Orders;
-import com.flabedu.small.small.model.enums.OrderStatus;
+import com.flabedu.small.small.dao.Orders;
+import com.flabedu.small.small.dao.enums.OrderStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;

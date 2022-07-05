@@ -1,10 +1,10 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.CategoryInfo;
-import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.model.ItemDetail;
-import com.flabedu.small.small.model.ItemImage;
-import com.flabedu.small.small.model.enums.SizeEnum;
+import com.flabedu.small.small.dao.CategoryInfo;
+import com.flabedu.small.small.dao.Item;
+import com.flabedu.small.small.dao.ItemDetail;
+import com.flabedu.small.small.dao.ItemImage;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

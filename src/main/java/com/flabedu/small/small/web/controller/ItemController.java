@@ -2,8 +2,8 @@ package com.flabedu.small.small.web.controller;
 
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
-import com.flabedu.small.small.web.dto.request.SelectedItemRequestDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,7 @@ import javax.validation.Valid;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class ItemController {
 
     private final ItemService itemService;
@@ -24,7 +25,10 @@ public class ItemController {
     }
 
     @GetMapping("/product")
-    public ResponseEntity<Object> getItems(@ModelAttribute("id") @Valid SelectedItemRequestDTO newItem) {
-        return ResponseEntity.status(HttpStatus.OK).body(itemService.getItem(newItem));
+    public ResponseEntity<Object> getItems(@RequestParam("id") long itemId){
+        if(itemId <= 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(itemService.getItem(itemId));
     }
 }

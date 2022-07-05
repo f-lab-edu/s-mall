@@ -1,6 +1,6 @@
-package com.flabedu.small.small.model;
+package com.flabedu.small.small.dao;
 
-import com.flabedu.small.small.model.enums.SizeEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

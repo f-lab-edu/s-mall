@@ -1,6 +1,6 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.OrdersItem;
+import com.flabedu.small.small.dao.OrdersItem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

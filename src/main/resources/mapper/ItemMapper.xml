@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flabedu.small.small.mapper.ItemMapper">
 
-    <insert id="addItem" parameterType="com.flabedu.small.small.model.Item"
+    <insert id="addItem" parameterType="com.flabedu.small.small.dao.Item"
             useGeneratedKeys="true" keyProperty="itemId">
         <selectKey order="AFTER" resultType="long" keyProperty="itemId">
             SELECT LAST_INSERT_ID()
@@ -34,35 +34,35 @@
         </foreach>
     </insert>
 
-    <select id="findItemAll" resultType="com.flabedu.small.small.model.Item">
+    <select id="findItemAll" resultType="com.flabedu.small.small.dao.Item">
         select * from item;
     </select>
 
     <select id="findItemById"
             parameterType="java.lang.Long"
-            resultType="com.flabedu.small.small.model.Item">
+            resultType="com.flabedu.small.small.dao.Item">
         SELECT * FROM item WHERE item_id = #{id}
     </select>
 
-    <select id="findItemDetailAll" resultType="com.flabedu.small.small.model.ItemDetail">
+    <select id="findItemDetailAll" resultType="com.flabedu.small.small.dao.ItemDetail">
         SELECT * FROM item_detail
     </select>
 
     <select id="findItemDetail"
             parameterType="map"
-            resultType="com.flabedu.small.small.model.ItemDetail">
+            resultType="com.flabedu.small.small.dao.ItemDetail">
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
     <select id="findItemDetailByItemId"
             parameterType="java.lang.Long"
-            resultType="com.flabedu.small.small.model.ItemDetail">
+            resultType="com.flabedu.small.small.dao.ItemDetail">
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId}
     </select>
 
     <select id="findItemImagesByItemId"
             parameterType="long"
-            resultType="com.flabedu.small.small.model.ItemImage">
+            resultType="com.flabedu.small.small.dao.ItemImage">
         SELECT * FROM item_image WHERE ITEM_ID = #{itemId} ORDER BY SEQ
     </select>
 
@@ -74,7 +74,7 @@
 
     <select id="getCategoryInfo"
             parameterType="long"
-            resultType="com.flabedu.small.small.model.CategoryInfo">
+            resultType="com.flabedu.small.small.dao.CategoryInfo">
         SELECT P.name "category", C.NAME "subCategory" FROM
             (SELECT * FROM category
                 WHERE category_id in

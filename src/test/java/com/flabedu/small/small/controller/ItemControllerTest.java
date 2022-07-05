@@ -1,8 +1,8 @@
 package com.flabedu.small.small.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flabedu.small.small.model.enums.GenderEnum;
-import com.flabedu.small.small.model.enums.SizeEnum;
+import com.flabedu.small.small.dao.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
@@ -395,32 +395,30 @@ public class ItemControllerTest {
         ).andExpectAll(
                 status().isOk()
         ).andDo(print());
-        Mockito.verify(itemService).getItem(Mockito.any());
+        Mockito.verify(itemService).getItem(id);
     }
 
     @Test
-    @DisplayName("음수 ID를 입력하면 상태 코드 500에 Body의 code 값이 702로 응답한다.")
+    @DisplayName("음수 ID를 입력하면 400 BAD_REQUEST 응답한다.")
     public void getItemFailNegativeID() throws Exception {
         int id = -17;
 
         this.mockMvc.perform(
                 get("/items/product?id=" + id)
         ).andExpectAll(
-                status().isInternalServerError(),
-                jsonPath("$[?(@.code == 702)]").exists()
+                status().isBadRequest()
         ).andDo(print());
     }
 
     @Test
-    @DisplayName("음수 ID를 0으로 입력하면 상태 코드 500에 Body의 code 값이 702로 응답한다.")
+    @DisplayName("음수 ID를 0으로 입력하면 400 BAD_REQUEST 응답한다.")
     public void getItemFailZeroID() throws Exception {
         int id = 0;
 
         this.mockMvc.perform(
                 get("/items/product?id=" + id)
         ).andExpectAll(
-                status().isInternalServerError(),
-                jsonPath("$[?(@.code == 702)]").exists()
+                status().isBadRequest()
         ).andDo(print());
     }
 }

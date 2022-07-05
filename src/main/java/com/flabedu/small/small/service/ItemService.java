@@ -6,12 +6,11 @@ import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
-import com.flabedu.small.small.model.*;
-import com.flabedu.small.small.model.enums.OrderStatus;
+import com.flabedu.small.small.dao.*;
+import com.flabedu.small.small.dao.enums.OrderStatus;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
-import com.flabedu.small.small.web.dto.request.SelectedItemRequestDTO;
 import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -63,8 +62,7 @@ public class ItemService {
                         .collect(Collectors.toList()));
     }
 
-    public SelectedItemResponseDTO getItem(SelectedItemRequestDTO itemInfo){
-        long itemId = itemInfo.getId();
+    public SelectedItemResponseDTO getItem(long itemId){
         Item item = itemMapper.findItemById(itemId);
         List<ItemDetail> itemDetail = itemMapper.findItemDetailByItemId(itemId);
         List<String> itemImages = itemMapper.findItemImagesNameByItemId(itemId);

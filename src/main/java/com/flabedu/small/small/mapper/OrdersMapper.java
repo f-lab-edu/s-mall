@@ -1,6 +1,6 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.model.Orders;
+import com.flabedu.small.small.dao.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

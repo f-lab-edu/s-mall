@@ -1,15 +1,14 @@
 package com.flabedu.small.small.service;
 
 import com.flabedu.small.small.mapper.ItemMapper;
-import com.flabedu.small.small.model.CategoryInfo;
-import com.flabedu.small.small.model.Item;
-import com.flabedu.small.small.model.ItemDetail;
-import com.flabedu.small.small.model.StockAndSize;
-import com.flabedu.small.small.model.enums.GenderEnum;
-import com.flabedu.small.small.model.enums.SizeEnum;
+import com.flabedu.small.small.dao.CategoryInfo;
+import com.flabedu.small.small.dao.Item;
+import com.flabedu.small.small.dao.ItemDetail;
+import com.flabedu.small.small.dao.StockAndSize;
+import com.flabedu.small.small.dao.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
-import com.flabedu.small.small.web.dto.request.SelectedItemRequestDTO;
 import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,8 +39,6 @@ public class ItemServiceTest {
     private ItemDetailRequestDTO itemDetailDTO;
     private ItemRequestDTO itemDTO;
 
-    private SelectedItemRequestDTO selectedItemRequestDTO;
-
     @BeforeEach
     void setUp() {
         itemDetailDTO = ItemDetailRequestDTO.builder()
@@ -56,8 +53,6 @@ public class ItemServiceTest {
                 .itemImages(List.of("img1.png","img2.png"))
                 .itemDetails(List.of(itemDetailDTO))
                 .build();
-
-        selectedItemRequestDTO = SelectedItemRequestDTO.builder().id(3L).build();
     }
 
     @Test
@@ -100,7 +95,7 @@ public class ItemServiceTest {
         when(itemMapper.findItemImagesNameByItemId(anyLong())).thenReturn(itemImages);
         when(itemMapper.getCategoryInfo(anyLong())).thenReturn(categoryInfos);
 
-        SelectedItemResponseDTO result = itemService.getItem(selectedItemRequestDTO);
+        SelectedItemResponseDTO result = itemService.getItem(3L);
 
         Assertions.assertEquals(result.getItemNameKr(), dummyItem.getName());
         Assertions.assertEquals(result.getItemNameEn(), dummyItem.getEngName());

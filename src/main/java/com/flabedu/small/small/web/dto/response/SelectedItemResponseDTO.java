@@ -1,7 +1,7 @@
 package com.flabedu.small.small.web.dto.response;
 
-import com.flabedu.small.small.model.CategoryInfo;
-import com.flabedu.small.small.model.StockAndSize;
+import com.flabedu.small.small.dao.CategoryInfo;
+import com.flabedu.small.small.dao.StockAndSize;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
