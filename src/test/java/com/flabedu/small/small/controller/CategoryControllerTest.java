@@ -3,7 +3,6 @@ package com.flabedu.small.small.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flabedu.small.small.service.CategoryService;
 import com.flabedu.small.small.web.dto.response.CategoryResponseDTO;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +33,12 @@ public class CategoryControllerTest {
     @MockBean
     CategoryService categoryService;
 
-    CategoryResponseDTO testDto0;
-    CategoryResponseDTO testDto1;
-
-    @BeforeEach
-    void setup() {
-        testDto0 = new CategoryResponseDTO(1l,null,"상의",14);
-        testDto1 = new CategoryResponseDTO(2l,null,"하의",2);
-    }
-
     @Test
     @DisplayName("카테고리 별 상품 개수 조회 시 예상한 값이 반환된다")
     public void findCategorySuccess() throws Exception {
+        CategoryResponseDTO testDto0 = new CategoryResponseDTO(1l,null,"상의",14);
+        CategoryResponseDTO testDto1 = new CategoryResponseDTO(2l,null,"하의",2);
+
         when(categoryService.findCategory()).thenReturn(List.of(testDto0, testDto1));
 
         ResultActions actions = mockMvc.perform(get("/category"))
