@@ -57,7 +57,6 @@ public class CategoryServiceTest {
         when(categoryMapper.findCategory()).thenReturn(expected);
 
         assertThat(expected.isEmpty());
-
     }
 
     @Test
