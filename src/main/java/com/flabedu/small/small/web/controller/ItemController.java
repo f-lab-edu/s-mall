@@ -22,8 +22,8 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/product")
-    public ResponseEntity<Object> getItems(@RequestParam("id") long itemId){
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Object> getItems(@PathVariable("id") long itemId){
         if(itemId <= 0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

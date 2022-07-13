@@ -10,7 +10,6 @@ import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -386,37 +385,36 @@ public class ItemControllerTest {
     }
 
     @Test
-    @DisplayName("올바른 아이템 ID로 호출 시 200 응답 코드와 ItemService의 getItem을 호출한다.")
+    @DisplayName("올바른 아이템 ID로 호출 시 200 OK를 응답한다.")
     public void getItemSuccess() throws Exception {
         int id = 17;
 
         this.mockMvc.perform(
-                get("/items/product?id="+id)
+                get("/items/product/"+id)
         ).andExpectAll(
                 status().isOk()
         ).andDo(print());
-        Mockito.verify(itemService).getItem(id);
     }
 
     @Test
-    @DisplayName("음수 ID를 입력하면 400 BAD_REQUEST 응답한다.")
+    @DisplayName("음수 ID를 입력하면 400 BAD_REQUEST를 응답한다.")
     public void getItemFailNegativeID() throws Exception {
         int id = -17;
 
         this.mockMvc.perform(
-                get("/items/product?id=" + id)
+                get("/items/product/" + id)
         ).andExpectAll(
                 status().isBadRequest()
         ).andDo(print());
     }
 
     @Test
-    @DisplayName("음수 ID를 0으로 입력하면 400 BAD_REQUEST 응답한다.")
+    @DisplayName("ID를 0으로 입력하면 400 BAD_REQUEST를 응답한다.")
     public void getItemFailZeroID() throws Exception {
         int id = 0;
 
         this.mockMvc.perform(
-                get("/items/product?id=" + id)
+                get("/items/product/" + id)
         ).andExpectAll(
                 status().isBadRequest()
         ).andDo(print());
