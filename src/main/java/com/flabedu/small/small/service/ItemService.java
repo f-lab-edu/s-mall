@@ -1,5 +1,6 @@
 package com.flabedu.small.small.service;
 
+import com.flabedu.small.small.dao.enums.GenderEnum;
 import com.flabedu.small.small.exception.CustomException;
 import com.flabedu.small.small.exception.ErrorCodes;
 import com.flabedu.small.small.mapper.ItemMapper;
@@ -78,7 +79,7 @@ public class ItemService {
         return SelectedItemResponseDTO.builder()
                 .itemNameKr(item.getName())
                 .itemNameEn(item.getEngName())
-                .gender(item.getGender())
+                .gender(GenderEnum.valueOf(item.getGender()))
                 .price(item.getPrice())
                 .category(categoryInfos)
                 .itemImages(itemImages)
