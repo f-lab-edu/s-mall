@@ -8,7 +8,10 @@ import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
+<<<<<<< HEAD
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
+=======
+>>>>>>> develop
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
 import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
@@ -103,7 +106,7 @@ public class ItemService {
         itemMapper.addItemImage(item.getItemId(), newItem.getItemImages());
         itemMapper.addItemDetail(item.getItemId(),
                 newItem.getItemDetails().stream()
-                        .map(ItemDetailRequestDTO::convertToModel)
+                        .map(d -> ItemDetailDao.builder().size(d.getSize()).stock(d.getStock()).build())
                         .collect(Collectors.toList()));
     }
 

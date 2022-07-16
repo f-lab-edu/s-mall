@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -36,10 +37,10 @@ import static org.mockito.Mockito.when;
 public class ItemServiceTest  {
 
     @Mock
-    private ItemMapper itemRepository;
+    MemberMapper memberMapper;
 
     @Mock
-    MemberMapper memberMapper;
+    ItemMapper itemMapper;
 
     @Mock
     OrdersItemMapper ordersItemMapper;
@@ -47,10 +48,8 @@ public class ItemServiceTest  {
     @InjectMocks
     private ItemService itemService;
 
-    private ItemDetailRequestDTO itemDetailDTO;
-    private ItemRequestDTO itemDTO;
 
-    @Mock
+    @MockBean
     OrdersMapper ordersMapper;
 
     MemberDao dummyMember = MemberDao.builder()
@@ -80,6 +79,8 @@ public class ItemServiceTest  {
             .stock(5)
             .size(SizeEnum.M)
             .build();
+    ItemDetailRequestDTO itemDetailDTO;
+    ItemRequestDTO itemDTO;
 
     @BeforeEach
     public void prepareDummy(){
@@ -106,8 +107,8 @@ public class ItemServiceTest  {
     @DisplayName("상품 구매 시 필요한 메소드가 모두 호출된다.")
     public void purchaseItemSuccess(){
         when(memberMapper.findMemberById(any())).thenReturn(dummyMember);
-        when(itemRepository.findItemById(anyLong())).thenReturn(dummyItem);
-        when(itemRepository.findItemDetail(anyLong(), any()))
+        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
+        when(itemMapper.findItemDetail(anyLong(), any()))
                 .thenReturn(dummyItemDetail);
 
         itemService.purchaseItem(dummyDto, "user");
@@ -129,7 +130,7 @@ public class ItemServiceTest  {
     @DisplayName("상품을 찾을 수 없을 경우 CANNOT_FIND_ITEM 에러 코드를 갖는 CustomException 을 발생시킨다.")
     public void noItem(){
         when(memberMapper.findMemberById(any())).thenReturn(dummyMember);
-        when(itemRepository.findItemById(anyLong())).thenReturn(null);
+        when(itemMapper.findItemById(anyLong())).thenReturn(null);
 
         CustomException ex = assertThrows(CustomException.class, ()->itemService.purchaseItem(dummyDto, "test user"));
         assertEquals(ErrorCodes.CANNOT_FIND_ITEM, ex.getErrorCode());
@@ -139,8 +140,8 @@ public class ItemServiceTest  {
     @DisplayName("상품 사이즈를 찾을 수 없을 경우 CANNOT_FIND_ITEM_DETAIL 에러 코드를 갖는 CustomException 을 발생시킨다..")
     public void noItemDetail(){
         when(memberMapper.findMemberById(any())).thenReturn(dummyMember);
-        when(itemRepository.findItemById(anyLong())).thenReturn(dummyItem);
-        when(itemRepository.findItemDetail(anyLong(), any())).thenReturn(null);
+        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
+        when(itemMapper.findItemDetail(anyLong(), any())).thenReturn(null);
 
         CustomException ex = assertThrows(CustomException.class, ()->itemService.purchaseItem(dummyDto, "test user"));
         assertEquals(ErrorCodes.CANNOT_FIND_ITEM_DETAIL, ex.getErrorCode());
@@ -157,8 +158,8 @@ public class ItemServiceTest  {
                 .build();
 
         when(memberMapper.findMemberById(any())).thenReturn(dummyMember);
-        when(itemRepository.findItemById(anyLong())).thenReturn(dummyItem);
-        when(itemRepository.findItemDetail(anyLong(), any())).thenReturn(dummyItemDetail); // 재고를 2개로 설정
+        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
+        when(itemMapper.findItemDetail(anyLong(), any())).thenReturn(dummyItemDetail); // 재고를 2개로 설정
 
         // dummyDto의 주문 수량은 3개
         CustomException ex = assertThrows(CustomException.class, ()->itemService.purchaseItem(dummyDto, "test user"));
@@ -170,10 +171,10 @@ public class ItemServiceTest  {
     public void addItemSuccess(){
         itemService.addItem(itemDTO);
 
-        verify(itemRepository).addItem(any(ItemDao.class));
-        verify(itemRepository).addItemCategory(any(), any());
-        verify(itemRepository).addItemImage(any(),anyList());
-        verify(itemRepository).addItemDetail(any(),anyList());
+        verify(itemMapper).addItem(any(ItemDao.class));
+        verify(itemMapper).addItemCategory(any(), any());
+        verify(itemMapper).addItemImage(any(),anyList());
+        verify(itemMapper).addItemDetail(any(),anyList());
     }
     @Test
     @DisplayName("getItem 호출시 조회 관련 쿼리가 예상값과 동일한 SelectedItemResponseDTO를 반환한다.")
@@ -199,17 +200,17 @@ public class ItemServiceTest  {
         List<String> itemImages = List.of("testImg1");
         List<CategoryInfo> categoryInfos = List.of(new CategoryInfo("상의", "티셔츠"));
 
-        when(itemRepository.findItemById(anyLong())).thenReturn(dummyItem);
-        when(itemRepository.findItemDetailByItemId(anyLong())).thenReturn(dummyItemDetail);
-        when(itemRepository.findItemImagesNameByItemId(anyLong())).thenReturn(itemImages);
-        when(itemRepository.getCategoryInfo(anyLong())).thenReturn(categoryInfos);
+        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
+        when(itemMapper.findItemDetailByItemId(anyLong())).thenReturn(dummyItemDetail);
+        when(itemMapper.findItemImagesNameByItemId(anyLong())).thenReturn(itemImages);
+        when(itemMapper.getCategoryInfo(anyLong())).thenReturn(categoryInfos);
 
         SelectedItemResponseDTO result = itemService.getItem(3L);
 
-        Assertions.assertEquals(result.getItemNameKr(), dummyItem.getName());
-        Assertions.assertEquals(result.getItemNameEn(), dummyItem.getEngName());
-        Assertions.assertEquals(result.getGender(), dummyItem.getGender());
-        Assertions.assertEquals(result.getPrice(), dummyItem.getPrice());
+        assertEquals(result.getItemNameKr(), dummyItem.getName());
+        assertEquals(result.getItemNameEn(), dummyItem.getEngName());
+        assertEquals(result.getGender(), dummyItem.getGender());
+        assertEquals(result.getPrice(), dummyItem.getPrice());
         Assertions.assertIterableEquals(result.getCategory(), categoryInfos);
         Assertions.assertIterableEquals(result.getItemImages(), itemImages);
         Assertions.assertIterableEquals(result.getStockAndSizes(), dummyStockAndSize);

@@ -1,9 +1,14 @@
 package com.flabedu.small.small.mapper;
 
+<<<<<<< HEAD
 import com.flabedu.small.small.dao.CategoryInfo;
 import com.flabedu.small.small.dao.ItemDao;
 import com.flabedu.small.small.dao.ItemDetailDao;
 import com.flabedu.small.small.dao.ItemImageDao;
+=======
+import com.flabedu.small.small.dao.ItemDao;
+import com.flabedu.small.small.dao.ItemDetailDao;
+>>>>>>> develop
 import com.flabedu.small.small.dao.enums.SizeEnum;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,8 +29,11 @@ public interface ItemMapper {
     ItemDetailDao findItemDetail(@Param("itemId") long itemId, @Param("size") SizeEnum size);
     void setStock(@Param("detailId") long detailId, @Param("stock")long stock);
     ItemDetailDao findItemDetailById(@Param("detailId") long detailId);
+<<<<<<< HEAD
     List<ItemImageDao> findItemImagesByItemId(@Param("itemId") long itemId);
     List<String> findItemImagesNameByItemId(@Param("itemId") long itemId);
     List<CategoryInfo> getCategoryInfo(@Param("itemId") long itemId);
     List<ItemDetailDao> findItemDetailByItemId(@Param("itemId") long itemId);
+=======
+>>>>>>> develop
 }
