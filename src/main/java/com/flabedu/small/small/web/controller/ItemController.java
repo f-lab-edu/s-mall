@@ -21,4 +21,12 @@ public class ItemController {
         itemService.addItem(newItem);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Object> getItems(@PathVariable("id") long itemId){
+        if(itemId <= 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(itemService.getItem(itemId));
+    }
 }

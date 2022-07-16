@@ -10,6 +10,7 @@ import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
+import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,4 +106,27 @@ public class ItemService {
                         .collect(Collectors.toList()));
     }
 
+    public SelectedItemResponseDTO getItem(long itemId){
+        ItemDao item = itemMapper.findItemById(itemId);
+        List<ItemDetailDao> itemDetail = itemMapper.findItemDetailByItemId(itemId);
+        List<String> itemImages = itemMapper.findItemImagesNameByItemId(itemId);
+        List<CategoryInfo> categoryInfos = itemMapper.getCategoryInfo(itemId);
+
+        List<StockAndSize> stockAndSizes = itemDetail.stream().map(v->
+                StockAndSize.builder()
+                        .stock(v.getStock())
+                        .size(v.getSize())
+                        .build()
+        ).collect(Collectors.toList());
+
+        return SelectedItemResponseDTO.builder()
+                .itemNameKr(item.getName())
+                .itemNameEn(item.getEngName())
+                .gender(item.getGender())
+                .price(item.getPrice())
+                .category(categoryInfos)
+                .itemImages(itemImages)
+                .stockAndSizes(stockAndSizes)
+                .build();
+    }
 }

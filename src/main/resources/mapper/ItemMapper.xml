@@ -54,6 +54,37 @@
         SELECT * FROM item_detail WHERE ITEM_ID = #{itemId} AND SIZE = #{size}
     </select>
 
+    <select id="findItemDetailByItemId"
+            parameterType="java.lang.Long"
+            resultType="com.flabedu.small.small.dao.ItemDetailDao">
+        SELECT * FROM item_detail WHERE ITEM_ID = #{itemId}
+    </select>
+
+    <select id="findItemImagesByItemId"
+            parameterType="long"
+            resultType="com.flabedu.small.small.dao.ItemImageDao">
+        SELECT * FROM item_image WHERE ITEM_ID = #{itemId} ORDER BY SEQ
+    </select>
+
+    <select id="findItemImagesNameByItemId"
+            parameterType="long"
+            resultType="java.lang.String">
+        SELECT filename FROM item_image WHERE ITEM_ID = #{itemId} ORDER BY SEQ
+    </select>
+
+    <select id="getCategoryInfo"
+            parameterType="long"
+            resultType="com.flabedu.small.small.dao.CategoryInfo">
+        SELECT P.name "category", C.NAME "subCategory" FROM
+            (SELECT * FROM category
+                WHERE category_id in
+                (SELECT category_id from item_category WHERE item_id = #{itemId})
+            ) C
+        INNER JOIN category P
+        ON C.parent = P.category_id;
+
+    </select>
+
     <select id="findItemDetailById"
             parameterType="long"
             resultType="com.flabedu.small.small.dao.ItemDetailDao">

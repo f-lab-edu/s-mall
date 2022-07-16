@@ -5,8 +5,8 @@ import com.flabedu.small.small.dao.enums.GenderEnum;
 import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.service.ItemService;
 import com.flabedu.small.small.web.controller.ItemController;
-import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
+import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,9 +20,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ItemController.class)
 public class ItemControllerTest {
@@ -379,6 +381,42 @@ public class ItemControllerTest {
         ).andExpectAll(
                 status().isInternalServerError(),
                 jsonPath("$[?(@.code == 702)]").exists()
+        ).andDo(print());
+    }
+
+    @Test
+    @DisplayName("올바른 아이템 ID로 호출 시 200 OK를 응답한다.")
+    public void getItemSuccess() throws Exception {
+        int id = 17;
+
+        this.mockMvc.perform(
+                get("/items/product/"+id)
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(print());
+    }
+
+    @Test
+    @DisplayName("음수 ID를 입력하면 400 BAD_REQUEST를 응답한다.")
+    public void getItemFailNegativeID() throws Exception {
+        int id = -17;
+
+        this.mockMvc.perform(
+                get("/items/product/" + id)
+        ).andExpectAll(
+                status().isBadRequest()
+        ).andDo(print());
+    }
+
+    @Test
+    @DisplayName("ID를 0으로 입력하면 400 BAD_REQUEST를 응답한다.")
+    public void getItemFailZeroID() throws Exception {
+        int id = 0;
+
+        this.mockMvc.perform(
+                get("/items/product/" + id)
+        ).andExpectAll(
+                status().isBadRequest()
         ).andDo(print());
     }
 }

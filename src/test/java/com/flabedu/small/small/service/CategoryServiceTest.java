@@ -6,9 +6,9 @@ import com.flabedu.small.small.web.dto.response.CategoryResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.SQLNonTransientConnectionException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class CategoryServiceTest {
     @Autowired
     CategoryService categoryService;
 
-    @MockBean
+    @Mock
     CategoryMapper categoryMapper;
 
     @Test

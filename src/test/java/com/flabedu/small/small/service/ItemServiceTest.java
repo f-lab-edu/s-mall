@@ -1,25 +1,25 @@
 package com.flabedu.small.small.service;
 
+import com.flabedu.small.small.dao.ItemDao;
+import com.flabedu.small.small.dao.ItemDetailDao;
+import com.flabedu.small.small.dao.MemberDao;
+import com.flabedu.small.small.dao.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.exception.CustomException;
 import com.flabedu.small.small.exception.ErrorCodes;
 import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
-import com.flabedu.small.small.dao.ItemDao;
-import com.flabedu.small.small.dao.ItemDetailDao;
-import com.flabedu.small.small.dao.MemberDao;
-import com.flabedu.small.small.dao.enums.GenderEnum;
-import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -37,16 +37,16 @@ public class ItemServiceTest  {
     @Autowired
     ItemService itemService;
 
-    @MockBean
+    @Mock
     ItemMapper itemMapper;
 
-    @MockBean
+    @Mock
     MemberMapper memberMapper;
 
-    @MockBean
+    @Mock
     OrdersItemMapper ordersItemMapper;
 
-    @MockBean
+    @Mock
     OrdersMapper ordersMapper;
 
     MemberDao dummyMember = MemberDao.builder()
