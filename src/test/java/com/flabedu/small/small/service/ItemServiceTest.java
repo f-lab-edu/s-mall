@@ -1,53 +1,47 @@
 package com.flabedu.small.small.service;
 
-import com.flabedu.small.small.dao.*;
-import com.flabedu.small.small.dao.enums.GenderEnum;
-import com.flabedu.small.small.dao.enums.SizeEnum;
-import com.flabedu.small.small.exception.CustomException;
-import com.flabedu.small.small.exception.ErrorCodes;
 import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
+import com.flabedu.small.small.dao.ItemDao;
+import com.flabedu.small.small.dao.ItemDetailDao;
+import com.flabedu.small.small.dao.MemberDao;
+import com.flabedu.small.small.dao.enums.GenderEnum;
+import com.flabedu.small.small.dao.enums.SizeEnum;
 import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
-import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class ItemServiceTest  {
 
-    @Mock
-    MemberMapper memberMapper;
+    @Autowired
+    ItemService itemService;
 
-    @Mock
+    @MockBean
     ItemMapper itemMapper;
 
-    @Mock
+    @MockBean
+    MemberMapper memberMapper;
+
+    @MockBean
     OrdersItemMapper ordersItemMapper;
-
-    @InjectMocks
-    private ItemService itemService;
-
 
     @MockBean
     OrdersMapper ordersMapper;
@@ -175,46 +169,6 @@ public class ItemServiceTest  {
         verify(itemMapper).addItemCategory(any(), any());
         verify(itemMapper).addItemImage(any(),anyList());
         verify(itemMapper).addItemDetail(any(),anyList());
-    }
-    @Test
-    @DisplayName("getItem 호출시 조회 관련 쿼리가 예상값과 동일한 SelectedItemResponseDTO를 반환한다.")
-    public void getItemSuccess(){
-        ItemDao dummyItem = ItemDao.builder().
-                itemId(10).
-                name("Test").
-                engName("EngName").
-                gender(GenderEnum.COMMON).
-                price(BigDecimal.valueOf(100)).
-                build();
-        List<ItemDetailDao> dummyItemDetail = List.of(
-                ItemDetailDao.builder().
-                        itemId(10L).
-                        itemDetailId(2L).
-                        build());
-        List<StockAndSize> dummyStockAndSize = dummyItemDetail.stream().map(v->
-                StockAndSize.builder()
-                        .stock(v.getStock())
-                        .size(v.getSize())
-                        .build()
-        ).collect(Collectors.toList());
-        List<String> itemImages = List.of("testImg1");
-        List<CategoryInfo> categoryInfos = List.of(new CategoryInfo("상의", "티셔츠"));
-
-        when(itemMapper.findItemById(anyLong())).thenReturn(dummyItem);
-        when(itemMapper.findItemDetailByItemId(anyLong())).thenReturn(dummyItemDetail);
-        when(itemMapper.findItemImagesNameByItemId(anyLong())).thenReturn(itemImages);
-        when(itemMapper.getCategoryInfo(anyLong())).thenReturn(categoryInfos);
-
-        SelectedItemResponseDTO result = itemService.getItem(3L);
-
-        assertEquals(result.getItemNameKr(), dummyItem.getName());
-        assertEquals(result.getItemNameEn(), dummyItem.getEngName());
-        assertEquals(result.getGender(), dummyItem.getGender());
-        assertEquals(result.getPrice(), dummyItem.getPrice());
-        Assertions.assertIterableEquals(result.getCategory(), categoryInfos);
-        Assertions.assertIterableEquals(result.getItemImages(), itemImages);
-        Assertions.assertIterableEquals(result.getStockAndSizes(), dummyStockAndSize);
-
     }
 
 }

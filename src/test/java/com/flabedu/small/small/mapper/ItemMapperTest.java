@@ -1,11 +1,5 @@
 package com.flabedu.small.small.mapper;
 
-<<<<<<< HEAD
-import com.flabedu.small.small.dao.ItemDao;
-import com.flabedu.small.small.dao.ItemDetailDao;
-import com.flabedu.small.small.dao.enums.GenderEnum;
-=======
->>>>>>> develop
 import com.flabedu.small.small.dao.enums.SizeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

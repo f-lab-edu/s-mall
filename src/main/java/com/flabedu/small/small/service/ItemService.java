@@ -8,10 +8,6 @@ import com.flabedu.small.small.mapper.ItemMapper;
 import com.flabedu.small.small.mapper.MemberMapper;
 import com.flabedu.small.small.mapper.OrdersItemMapper;
 import com.flabedu.small.small.mapper.OrdersMapper;
-<<<<<<< HEAD
-import com.flabedu.small.small.web.dto.request.ItemDetailRequestDTO;
-=======
->>>>>>> develop
 import com.flabedu.small.small.web.dto.request.ItemRequestDTO;
 import com.flabedu.small.small.web.dto.request.OrderRequestDTO;
 import com.flabedu.small.small.web.dto.response.SelectedItemResponseDTO;
