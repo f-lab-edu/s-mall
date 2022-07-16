@@ -1,6 +1,6 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.dao.Orders;
+import com.flabedu.small.small.dao.OrdersDao;
 import com.flabedu.small.small.dao.enums.OrderStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class OrdersMapperTest {
     public void insertOrders_Get_OrderID_Test(){
         int inputOrderId = -1;
         var curTime = LocalDateTime.now();
-        var ordersDAO = Orders.builder()
+        var orders = OrdersDao.builder()
                 .orderId(inputOrderId)
                 .memberId(2)
                 .totalPrice(BigDecimal.valueOf(300))
@@ -36,16 +36,16 @@ class OrdersMapperTest {
                 .modifiedDate(curTime)
                 .build();
 
-        ordersMapper.insertOrders(ordersDAO);
+        ordersMapper.insertOrders(orders);
 
-        assertNotEquals(inputOrderId, ordersDAO.getOrderId());
+        assertNotEquals(inputOrderId, orders.getOrderId());
     }
 
     @Test
     @DisplayName("주문을 삽입하고 삽입되었는지 확인한다.")
     public void insertOrders_Insert_Row_Test(){
         var curTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        var ordersDAO = Orders.builder()
+        var orders = OrdersDao.builder()
                 .orderId(0l)
                 .memberId(2)
                 .totalPrice(BigDecimal.valueOf(300))
@@ -54,9 +54,9 @@ class OrdersMapperTest {
                 .modifiedDate(curTime)
                 .build();
 
-        ordersMapper.insertOrders(ordersDAO);
-        var readOrders = ordersMapper.findOrdersById(ordersDAO.getOrderId());
+        ordersMapper.insertOrders(orders);
+        var readOrders = ordersMapper.findOrdersById(orders.getOrderId());
 
-        assertEquals(ordersDAO, readOrders);
+        assertEquals(orders, readOrders);
     }
 }

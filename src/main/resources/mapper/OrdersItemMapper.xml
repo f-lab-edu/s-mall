@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flabedu.small.small.mapper.OrdersItemMapper">
-    <resultMap id="ordersItemMap" type="com.flabedu.small.small.dao.OrdersItem">
+    <resultMap id="ordersItemMap" type="com.flabedu.small.small.dao.OrdersItemDao">
         <id property="itemId" column="itemId"/>
         <id property="itemDetailId" column="itemDetailId"/>
         <id property="ordersItemCount" column="rdersItemCount"/>
@@ -25,7 +25,7 @@
 
     <select id="findOrderDetailById"
             parameterType="long"
-            resultType="com.flabedu.small.small.dao.OrdersItem">
+            resultType="com.flabedu.small.small.dao.OrdersItemDao">
         select * from orders_item where orders_id = #{ordersId}
     </select>
 

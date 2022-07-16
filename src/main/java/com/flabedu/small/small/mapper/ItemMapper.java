@@ -1,9 +1,9 @@
 package com.flabedu.small.small.mapper;
 
 import com.flabedu.small.small.dao.CategoryInfo;
-import com.flabedu.small.small.dao.Item;
-import com.flabedu.small.small.dao.ItemDetail;
-import com.flabedu.small.small.dao.ItemImage;
+import com.flabedu.small.small.dao.ItemDao;
+import com.flabedu.small.small.dao.ItemDetailDao;
+import com.flabedu.small.small.dao.ItemImageDao;
 import com.flabedu.small.small.dao.enums.SizeEnum;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,23 +14,18 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ItemMapper {
-    //Insert
-    Long addItem(Item item);
-    void addItemCategory(Item item, @Param("itemCategory") Long itemCategory);
+    Long addItem(ItemDao item);
+    void addItemCategory(ItemDao item, @Param("itemCategory") Long itemCategory);
     void addItemImage(@Param("itemId") Long itemId, @Param("itemImages") List<String> itemImages);
-    void addItemDetail(@Param("itemId") Long itemId, @Param("itemDetails") List<ItemDetail> itemDetails);
-
-    //Update
+    void addItemDetail(@Param("itemId") Long itemId, @Param("itemDetails") List<ItemDetailDao> itemDetails);
+    List<ItemDao> findItemAll();
+    ItemDao findItemById(long id);
+    List<ItemDetailDao> findItemDetailAll();
+    ItemDetailDao findItemDetail(@Param("itemId") long itemId, @Param("size") SizeEnum size);
     void setStock(@Param("detailId") long detailId, @Param("stock")long stock);
-
-    //Get
-    List<Item> findItemAll();
-    Item findItemById(long id);
-    List<ItemDetail> findItemDetailAll();
-    ItemDetail findItemDetail(@Param("itemId") long itemId, @Param("size") SizeEnum size);
-    List<ItemDetail> findItemDetailByItemId(@Param("itemId") long itemId);
-    List<ItemImage> findItemImagesByItemId(@Param("itemId") long itemId);
+    ItemDetailDao findItemDetailById(@Param("detailId") long detailId);
+    List<ItemImageDao> findItemImagesByItemId(@Param("itemId") long itemId);
     List<String> findItemImagesNameByItemId(@Param("itemId") long itemId);
-    ItemDetail findItemDetailById(@Param("detailId") long detailId);
     List<CategoryInfo> getCategoryInfo(@Param("itemId") long itemId);
+    List<ItemDetailDao> findItemDetailByItemId(@Param("itemId") long itemId);
 }

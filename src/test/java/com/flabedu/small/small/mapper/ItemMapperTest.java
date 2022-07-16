@@ -1,7 +1,8 @@
 package com.flabedu.small.small.mapper;
 
-import com.flabedu.small.small.dao.Item;
-import com.flabedu.small.small.dao.ItemDetail;
+import com.flabedu.small.small.dao.ItemDao;
+import com.flabedu.small.small.dao.ItemDetailDao;
+import com.flabedu.small.small.dao.enums.GenderEnum;
 import com.flabedu.small.small.dao.enums.SizeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,12 @@ class ItemMapperTest {
     ItemMapper itemMapper;
 
     @Test
+    @DisplayName("아이템을 반환한다. 에러 없이 성공한다.")
+    public void itemListTest(){
+        itemMapper.findItemAll();
+    }
+
+    @Test
     @DisplayName("아이템 아이디로 아이템을 찾는다. 찾은 아이템의 id가 동일하다.")
     public void getItemTest(){
         //given
@@ -33,6 +40,12 @@ class ItemMapperTest {
 
         //then
         Assertions.assertEquals(item.getItemId(), id);
+    }
+    
+    @Test
+    @DisplayName("상세아이템을 반환한다. 에러 없이 성공한다.")
+    public void itemDetailListTest(){
+        itemMapper.findItemDetailAll();
     }
 
     @Test
@@ -82,10 +95,10 @@ class ItemMapperTest {
     @DisplayName("아이템 아이디로 아이템을 찾는다. 찾은 아이템의 재고와 사이즈가 입력한 값과 동일하다.")
     public void findItemDetailByItemIdTest(){
         //given
-        Item dummyItem = Item.builder()
+        ItemDao dummyItem = ItemDao.builder()
                 .name("dummy")
                 .engName("dummy")
-                .gender("C")
+                .gender(GenderEnum.COMMON)
                 .price(BigDecimal.valueOf(100))
                 .registUserid("test")
                 .registDate(LocalDateTime.now())
@@ -93,8 +106,8 @@ class ItemMapperTest {
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
-        List<ItemDetail> dummyItemDetails = new ArrayList<>();
-        dummyItemDetails.add(ItemDetail.builder()
+        List<ItemDetailDao> dummyItemDetails = new ArrayList<>();
+        dummyItemDetails.add(ItemDetailDao.builder()
                 .size(SizeEnum.L)
                 .stock(11)
                 .build()
@@ -117,10 +130,10 @@ class ItemMapperTest {
     @DisplayName("아이템 아이디로 이미지 이름을 읽어온다. 읽어오기 전에 삽입한 이미지 이름과 동일하다.")
     public void findItemImagesNameByItemIdTest(){
         //given
-        Item dummyItem = Item.builder()
+        ItemDao dummyItem = ItemDao.builder()
                 .name("dummy")
                 .engName("dummy")
-                .gender("C")
+                .gender(GenderEnum.COMMON)
                 .price(BigDecimal.valueOf(100))
                 .registUserid("test")
                 .registDate(LocalDateTime.now())
@@ -128,8 +141,8 @@ class ItemMapperTest {
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
-        List<ItemDetail> dummyItemDetails = new ArrayList<>();
-        dummyItemDetails.add(ItemDetail.builder()
+        List<ItemDetailDao> dummyItemDetails = new ArrayList<>();
+        dummyItemDetails.add(ItemDetailDao.builder()
                 .size(SizeEnum.L)
                 .stock(11)
                 .build()
@@ -149,10 +162,10 @@ class ItemMapperTest {
     @DisplayName("카테고리가 ID가 3인 반팔티 카테고리 아이템을 DB에 넣은 후 해당 아이템 ID로 읽어온 데이터의 카테고리가 반팔 티셔츠이다.")
     public void getCategoryInfoTest(){
         //given
-        Item dummyItem = Item.builder()
+        ItemDao dummyItem = ItemDao.builder()
                 .name("dummy")
                 .engName("dummy")
-                .gender("C")
+                .gender(GenderEnum.COMMON)
                 .price(BigDecimal.valueOf(100))
                 .registUserid("test")
                 .registDate(LocalDateTime.now())
@@ -160,8 +173,8 @@ class ItemMapperTest {
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
-        List<ItemDetail> dummyItemDetails = new ArrayList<>();
-        dummyItemDetails.add(ItemDetail.builder()
+        List<ItemDetailDao> dummyItemDetails = new ArrayList<>();
+        dummyItemDetails.add(ItemDetailDao.builder()
                 .size(SizeEnum.L)
                 .stock(11)
                 .build()
